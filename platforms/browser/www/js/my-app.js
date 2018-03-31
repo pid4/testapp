@@ -439,10 +439,11 @@ function image_camera() {
 function imagead_onSuccess(fileURL) {
     console.log("on selection success");
     myApp.showPreloader('uploading image');
-    var uri = encodeURI("http://192.168.0.113/CI/upload/");
+    var uri = encodeURI("http://kreaserv.com/assets/");
     var options = new FileUploadOptions();
     options.fileKey = "file";
     options.fileName = fileURL.substr(fileURL.lastIndexOf('/') + 1);
+
     options.mimeType = "image/jpeg";
     var headers = {
         'headerParam': 'headerValue'
@@ -452,6 +453,7 @@ function imagead_onSuccess(fileURL) {
 }
 
 function imagead_onSuccess_file(res) {
+    console.log(res);
     console.log('res: ' + j2s(res));
     myApp.hidePreloader();
     if (res.responseCode == 200) {
@@ -476,4 +478,8 @@ function imagead_onError_file(error) {
     console.log("upload error source " + error.source);
     console.log("upload error target " + error.target);
     myApp.alert("Some Error Occured While image upload please try again");
+}
+
+function j2s(json) {
+    return JSON.stringify(json);
 }

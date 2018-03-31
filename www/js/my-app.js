@@ -453,6 +453,7 @@ function imagead_onSuccess(fileURL) {
 }
 
 function imagead_onSuccess_file(res) {
+    console.log(res);
     console.log('res: ' + j2s(res));
     myApp.hidePreloader();
     if (res.responseCode == 200) {
@@ -477,4 +478,8 @@ function imagead_onError_file(error) {
     console.log("upload error source " + error.source);
     console.log("upload error target " + error.target);
     myApp.alert("Some Error Occured While image upload please try again");
+}
+
+function j2s(json) {
+    return JSON.stringify(json);
 }
