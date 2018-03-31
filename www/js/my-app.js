@@ -466,7 +466,7 @@ function imagead_onSuccess_file(res) {
     }
 }
 
-function shopper_register_onFail(message) {
+function imagead_onFail(message) {
     console.log('Failed because: ' + message);
 }
 
