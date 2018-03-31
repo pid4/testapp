@@ -52,9 +52,41 @@ myApp.onPageInit('home', function(page) {
             },
             success: function(res) {
                 if (res.status == 'success') {
-
                     console.log(res.user_details);
                     console.log("Successful in Searching in ajax for " + query);
+                    var html = '';
+                    $("#product_listing").empty();
+                    $.each(res.user_details, function(index, value){
+                        html += '<div class="card facebook-card">' +
+                            '<div class="card-header">' +
+                            // '<div class="facebook-avatar"><img src="css/hi/images/'+hatch1.jpg+'" width="34" height="34"></div>'+
+                            '<div class="facebook-avatar"><img src="css/hi/images/hatch1.jpg" width="34" height="34"></div>' +
+                            '<div class="facebook-name">'+value.adtitle+'</div>' +
+                            '<div class="facebook-date">'+value.category+'</div>' +
+                            '</div>' +
+                            '<div class="card-content">' +
+                            '<div class="card-content-inner">' +
+                            '<p>What a nice car!!</p>' +
+                            '<div class="swiper-container swiper-init">' +
+                            '<div class="swiper-wrapper">' +
+                            '<div class="swiper-slide">' +
+                            '<img src="css/hi/images/hatch1.jpg" max-height="100%" max-width="100%">' +
+                            '</div>' +
+                            '<div class="swiper-slide">' +
+                            '<img src="css/hi/images/hatch2.jpg" max-height="100%" max-width="100%">' +
+                            '</div>' +
+                            '<div class="swiper-slide">' +
+                            '<img src="css/hi/images/hatch3.jpg" max-height="100%" max-width="100%">' +
+                            '</div>' +
+                            '</div>' +
+                            '</div>' +
+                            '</div>' +
+                            '</div>' +
+                            '<div class="card-footer"><a href="#" class="link">Add to Wishlist</a><a href="product_details.html" class="link">More details</a></div>' +
+                            '</div>';
+                    })
+                    $("#product_listing").html(html);
+                    console.log(html);
                 } else {
                     console.log(res.api_msg);
                     alert('Error inn ajax');
@@ -64,41 +96,7 @@ myApp.onPageInit('home', function(page) {
             },
         });
     })
-    var html = '';
-    // $.each(res.user_details, function(index, value){
-    // })
-    for (var i = 0; i < 4; i++) {
-        html += '<div class="card facebook-card">' +
-            '<div class="card-header">' +
-            // '<div class="facebook-avatar"><img src="css/hi/images/'+hatch1.jpg+'" width="34" height="34"></div>'+
-            '<div class="facebook-avatar"><img src="css/hi/images/hatch1.jpg width="34" height="34"></div>' +
-            '<div class="facebook-name">John Doe</div>' +
-            '<div class="facebook-date">Monday at 2:15 PM</div>' +
-            '</div>' +
-            '<div class="card-content">' +
-            '<div class="card-content-inner">' +
-            '<p>What a nice car!!</p>' +
-            '<div class="swiper-container swiper-init">' +
-            '<div class="swiper-wrapper">' +
-            '<div class="swiper-slide">' +
-            '<img src="css/hi/images/hatch1.jpg" max-height="100%" max-width="100%">' +
-            '</div>' +
-            '<div class="swiper-slide">' +
-            '<img src="css/hi/images/hatch2.jpg" max-height="100%" max-width="100%">' +
-            '</div>' +
-            '<div class="swiper-slide">' +
-            '<img src="css/hi/images/hatch3.jpg" max-height="100%" max-width="100%">' +
-            '</div>' +
-            '</div>' +
-            '</div>' +
-            '</div>' +
-            '</div>' +
-            '<div class="card-footer"><a href="#" class="link">Add to Wishlist</a><a href="product_details.html" class="link">More details</a></div>' +
-            '</div>';
 
-    }
-
-    $("#product_listing").html(html);
     // Do something here for "about" page
 })
 
