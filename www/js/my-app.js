@@ -466,6 +466,10 @@ function imagead_onSuccess_file(res) {
     }
 }
 
+function shopper_register_onFail(message) {
+    console.log('Failed because: ' + message);
+}
+
 function imagead_onError_file(error) {
     myApp.hidePreloader();
     console.log("An error has occurred: Code = " + error.code);
