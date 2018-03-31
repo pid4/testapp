@@ -1,0 +1,167 @@
+<div class="views">
+    <div class="view view-main">
+        <div class="navbar">
+            <div class="navbar-inner">
+                <div class="left">
+                    <div class="icon-cell">
+                        <p>
+                            <a href="index.html">
+                                        <i class="f7-icons size-50">left</i>
+                                          Back
+                                        </a>
+                        </p>
+                    </div>
+                </div>
+                <div class="center">Renter</div>
+                <div class="right"> </div>
+            </div>
+        </div>
+        <div class="pages navbar-through">
+            <div data-page="adpost" class="page navbar-fixed">
+                <div class="page-content">
+                    <div class="block">
+                        <div class="content-block1">
+                            <div class="content-block-title">Product Details</div>
+                            <div class="list-block">
+                                <!--<form class="list" id="signup" enctype="multipart/form-data">-->
+                                    <ul>
+                                        <li class="item-content item-input">
+
+                                            <div class="item-inner">
+                                                <div class="item-title item-label">Ad Title</div>
+                                                <div class="item-input-wrap">
+
+                                                    <input type="text" placeholder="What are you renting?" id="adtitle">
+                                                    <span class="input-clear-button"></span>
+                                                </div>
+                                            </div>
+
+                                        </li>
+
+                                        <li>
+                                            <div class="item-content">
+                                                <div class="item-inner">
+                                                    <div class="item-title item-label">Photos</div>
+                                                    <div class="item-input-wrap">
+
+                                                        <button placeholder= "Add a photo" id="adphoto_btn" onclick="open_dialog_for_image();" 
+                                                        >Upload</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="item-content">
+                                                <div class="item-inner">
+                                                    <div class="item-title item-label"> Phone No.</div>
+                                                    <div class="item-input-wrap">
+
+                                                        <input type ="number"  pattern="^[0-9]" title="Only Number" min="1"
+            required placeholder="Enter Your Phone No." id="phoneno">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+
+
+
+
+                                        <li>
+                                            <div class="item-content">
+                                                <div class="item-inner">
+                                                    <div class="item-title item-label">Category</div>
+                                                    <div class="item-input-wrap">
+
+                                                        <select id="category">
+                                                    <option>Mobiles,Computers</option>
+                                                    <option>TV,Appliances,Electronics</option>
+                                                    <option>Men's Fashion</option>
+                                                    <option>Women's Fashion</option>
+                                                    <option>Home,Kitchen</option>
+                                                    <option>Sports,Fitness,Bags,Luggage</option>
+                                                    <option>Toys,Baby Products,Kids Fashion</option>
+                                                    <option>Cars,Motorbikes,Cycle</option>
+                                                    <option>Books and Stationery</option>
+                                                 </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+
+                                        <li>
+                                            <div class="item-content">
+                                                <div class="item-inner">
+                                                    <div class="item-title item-label"> Description</div>
+                                                    <div class="item-input-wrap">
+
+                                                        <textarea id="description" placeholder="Give us details about the product like make,model and condition" required minlength="20"></textarea>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="item-content">
+                                                <div class="item-inner">
+                                                    <div class="item-title item-label">Rent per day</div>
+                                                    <div class="item-input-wrap">
+
+                                                        <input type="number" min="1.00" max="10000.00" step="1.00" placeholder="100Rs/perday" id="rentperday" required />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="item-content">
+                                                <div class="item-inner">
+                                                    <div class="item-title item-label">Maximum no of days you want to rent</div>
+                                                    <div class="item-input-wrap">
+
+                                                        <input type="number" min="1.00" max="30.00" step="1.00" placeholder="5" id="maxdays" required />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="item-content">
+                                                <div class="item-inner">
+                                                    <div class="item-title item-label">Deposit Amount</div>
+                                                    <div class="item-input-wrap">
+
+                                                        <input type="number" min="100.00" max="100000.00" step="1.00" placeholder="1000Rs" id="depositamt" required>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="item-content">
+                                                <div class="item-inner">
+                                                    <div class="item-title item-label">City</div>
+                                                    <div class="item-input-wrap">
+
+                                                        <select id="city">
+                                                  <option>Mumbai</option>
+                                                  <option>Delhi</option>
+                                                  <option>Chennai</option>
+                                                  <option>Kolkatta</option>
+                                                  <option>Banglore</option>
+                                                  <option>Pune</option>
+                                               </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                         <!--        </form> -->
+                            </div>
+                        </div>
+                        <div class="content-block">
+                            <button id="adpost_btn" class="button button-fill">Post Ad
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="msapplication-tap-highlight" content="no" />
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
+    <title>Renter</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.9/css/all.css" integrity="sha384-5SOiIsAziJl6AWe0HWRKTXlfcSHKmYV4RBF18PPJ173Kzn7jzMyFuTtk8JA7QQG1" crossorigin="anonymous">
+    <link rel="stylesheet" href="lib/framework7/css/framework7.ios.min.css">
+    <link rel="stylesheet" href="lib/framework7/css/framework7.ios.colors.min.css">
+    <link rel="stylesheet" href="lib/framework7/css/framework7.material.colors.min.css">
+    <link rel="stylesheet" href="lib/framework7/css/framework7.material.min.css">
+    
+    <link href="css/framework7-icons.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/styles.css">
+
+</head>
+
+<body>
+    <!-- Status bar overlay for full screen mode (PhoneGap) -->
+    <div class="statusbar-overlay"></div>
+
+    <!-- Panels overlay-->
+    <div class="panel-overlay"></div>
+    <!-- Left panel with reveal effect-->
+    <div class="panel panel-left panel-cover">
+        <div class="page color-theme-green">
+            <div class="block">
+                <h2>
+                    <div class="icon-cell"></div>
+                       <!-- <i class="f7-icons size-50">person_fill</i> -->
+                       <i class="fas fa-home"></i>
+                        <div style="float:left"> Hello &nbsp;</div>
+                         <div style="float:left" id='username'></div>
+                </h2>
+                <div class="list-block">
+                    <form class="list">
+                        <ul>
+                            <li id="home">
+                                <div class="item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title item-label">
+                                            <div class="icon-cell">
+                                                <i class="f7-icons size-50">home_fill</i>
+                                                <a class="close-panel" href="home.html" id="homenvabar">Home</a></div>
+                                        </div>
+                                    </div>
+                            </li>
+                            <div class="list accordion-list"></div>
+                            <li class="accordion-item">
+                                <a href="sbc.html" class="item-content item-link">
+                                    <div class="item-inner">
+                                        <div class="item-title">Shop by Categories</div>
+                                    </div>
+                                </a>
+                                <div class="accordion-item-content">
+                                    <div class="list-block">
+                                        <div class="item-title item-label">
+                                            <form class="list">
+                                                <ul>
+                                                    <li>
+                                                        <p><a class="close-panel" href="index.html">Mobiles,Computers</a></p>
+                                                        <p><a class="close-panel" href="index.html">TV,Appliances,Electronics</a></p>
+                                                        <p><a class="close-panel" href="index.html">Men's Fashion</a></p>
+                                                        <p><a class="close-panel" href="index.html">Women's Fashion</a></p>
+                                                        <p><a class="close-panel" href="index.html">Home,Kitchen</a></p>
+                                                        <p><a class="close-panel" href="index.html">Sports,Fitness,Bags,Luggage</a></p>
+                                                        <p><a class="close-panel" href="index.html">Toys,Baby Products,Kids Fashion</a></p>
+                                                        <p><a class="close-panel" href="index.html">Cars,Motorbikes,Cycle</a></p>
+                                                        <p><a class="close-panel" href="index.html">Books and Stationery</a></p>
+                                                    </li>
+
+                                                </ul>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <!--  <div class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-title item-label">
+                                            <a class="close-panel" href="sbc.html">Shop by Categories</a></div>
+                                </div>-->
+
+                            <li id="orderdetails">
+                                <div class="item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title item-label">Order Details</div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li id="youracccount">
+                                <div class="item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title item-label">
+                                            <a class="close-panel" href="account_details.html">Your Account</a></div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li id="postanad">
+                                <div class="item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title item-label">
+                                            <a class="close-panel" href="adpost.html">Post an Ad</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li id="settings">
+                                <div class="item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title item-label">Settings</div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li id="logout">
+                                <div class="item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title item-label">
+                                            <a href="login.html" class="close-panel">Logout</a></div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </form>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-right panel-cover">
+        <div class="page color-theme-green">
+            <div class="block">
+                <div class="content-block">
+                    <p>No new notifications</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Views -->
+    <div class="views">
+        <!-- Your main view, should have "view-main" class -->
+        <div class="view view-main">
+            <!-- Top Navbar-->
+            <div class="navbar">
+                <div class="navbar-inner">
+                    <div class="left">
+                        <!--
+                                  Right link contains only icon - additional "icon-only" class
+                                  Additional "open-panel" class tells app to open panel when we click on this link
+                                -->
+                        <a href="#" class="link icon-only open-panel"><i class="icon icon-bars"></i></a>
+                    </div>
+                    <!-- We need cool sliding animation on title element, so we have additional "sliding" class -->
+                    <div class="center sliding">Renter</div>
+                    <div class="right">
+                        <div class="icon-cell">
+                            <a href="#" data-panel="right" class="link icon-only open-panel">
+                            <i class="f7-icons size-75">bell</i></a>
+                        </div>
+                    </div>
+
+
+
+                </div>
+            </div>
+            <!-- Pages container, because we use fixed-through navbar and toolbar, it has additional appropriate classes-->
+            <div class="pages navbar-through toolbar-through">
+                <!-- Page, "data-page" contains page name -->
+                <div data-page="index" class="page">
+                    <img src="images/gif-preloader-9.gif">
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="cordova.js"></script>
+    <!-- <script type="text/javascript" src="js/jquery-1.11.1.min.js"></script> -->
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
+    <script type="text/javascript" src="lib/framework7/js/framework7.min.js"></script>
+    <script type="text/javascript" src="js/my-app.js"></script>
+    <script>
+    </script>
+</body>
+</html>
