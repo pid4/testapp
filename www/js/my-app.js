@@ -439,10 +439,11 @@ function image_camera() {
 function imagead_onSuccess(fileURL) {
     console.log("on selection success");
     myApp.showPreloader('uploading image');
-    var uri = encodeURI("http://192.168.0.113/CI/upload/");
+    var uri = encodeURI("http://kreaserv.com/assets/");
     var options = new FileUploadOptions();
     options.fileKey = "file";
     options.fileName = fileURL.substr(fileURL.lastIndexOf('/') + 1);
+
     options.mimeType = "image/jpeg";
     var headers = {
         'headerParam': 'headerValue'
