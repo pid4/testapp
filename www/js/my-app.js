@@ -1,4 +1,4 @@
-var base_url = 'http://192.168.0.113/CI/index.php/';
+var base_url = 'http://192.168.1.2/CI/index.php/';
 
 // Initialize app
 var myApp = new Framework7({
@@ -27,7 +27,7 @@ var mainView = myApp.addView('.view-main', {
 // Handle Cordova Device Ready Event
 $$(document).on('deviceready', function() {
     //  mainView.hideNavbar();
-    goto_page('product_details.html');
+    goto_page('login.html');
     // if(token_data == undefined){ 
     //     goto_page('login.html');
     // } else {
@@ -95,6 +95,39 @@ myApp.onPageInit('home', function(page) {
                 console.log(res.status);
             },
         });
+        // $.each(res.user_details, function(index, value){
+        //     html += '<div class="card facebook-card">' +
+        //         '<div class="card-header">' +
+        //         // '<div class="facebook-avatar"><img src="css/hi/images/'+hatch1.jpg+'" width="34" height="34"></div>'+
+        //         '<div class="facebook-avatar"><img src="css/hi/images/hatch1.jpg" width="34" height="34"></div>' +
+        //         '<div class="facebook-name">'+value.adtitle+'</div>' +
+        //         '<div class="facebook-date">'+value.category+'</div>' +
+        //         '</div>' +
+        //         '<div class="card-content">' +
+        //         '<div class="card-content-inner">' +
+        //         '<p>What a nice car!!</p>' +
+        //         '<div class="swiper-container swiper-init">' +
+        //         '<div class="swiper-wrapper">' +
+        //         '<div class="swiper-slide">' +
+        //         '<img src="css/hi/images/hatch1.jpg" max-height="100%" max-width="100%">' +
+        //         '</div>' +
+        //         '<div class="swiper-slide">' +
+        //         '<img src="css/hi/images/hatch2.jpg" max-height="100%" max-width="100%">' +
+        //         '</div>' +
+        //         '<div class="swiper-slide">' +
+        //         '<img src="css/hi/images/hatch3.jpg" max-height="100%" max-width="100%">' +
+        //         '</div>' +
+        //         '</div>' +
+        //         '</div>' +
+        //         '</div>' +
+        //         '</div>' +
+        //         '<div class="card-footer"><a href="#" class="link">Add to Wishlist</a><a href="product_details.html" class="link">More details</a></div>' +
+        //         '</div>';
+        // })
+
+
+
+
     })
 
     // Do something here for "about" page
@@ -123,7 +156,7 @@ myApp.onPageInit('login', function(page) {
                     if (res.status == 'success') {
                         console.log(res.user_details);
                         var username = document.getElementById('username');
-                        var nam = res.user_details["name"];
+                        var nam = 'Hello, ' + res.user_details["name"] ;
                         username.innerHTML = nam;
                         console.log(nam);
                         var disp_name = document.getElementById('disp_name');
@@ -313,6 +346,7 @@ function goto_page(page) {
         ignoreCache: false,
     });
 }
+
 myApp.onPageInit('account_details', function(page) {
     $.ajax({
         url: base_url + 'welcome/account_details',

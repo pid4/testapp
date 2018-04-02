@@ -1,227 +1,99 @@
-
-    <div class="statusbar-overlay"></div>
-
-    <!-- Panels overlay-->
-    <div class="panel-overlay"></div>
-    <!-- Left panel with reveal effect-->
-    <div class="panel panel-left panel-cover">
-            <div class="page color-theme-green">
-                    <div class="block">
-                           <h2><div class="icon-cell">
-                                   <i class="f7-icons size-50">person_fill</i>
-                               Hello,Harsh</div></h2>
-                           <div class="list-block">
-                                  
-                               <form class="list">
-                           <ul>
-                                   <li id="home">
-                                           <div class="item-content">
-                                               <div class="item-inner">
-                                                   <div class="item-title item-label">
-                                                           <div class="icon-cell">
-                                                                   <i class="f7-icons size-50">home_fill</i>
-                                                           <a class="close-panel" href="index.html">Home</a></div>
-                                               </div>
-                                           </div>
-                                       </li>
-                               <li id="shopbycategories">
-                                   <div class="item-content">
-                                       <div class="item-inner">
-                                           <div class="item-title item-label">
-                                                   <a class="close-panel" href="sbc.html">Shop by Categories</a></div>
-                                       </div>
-                                   </div>
-                               </li>
-                               <li id="orderdetails">
-                                       <div class="item-content">
-                                           <div class="item-inner">
-                                               <div class="item-title item-label">Order Details</div>
-                                           </div>
-                                       </div>
-                               </li>
-                               <li id="youracccount">
-                                       <div class="item-content">
-                                           <div class="item-inner">
-                                               <div class="item-title item-label">
-                                                   <a class="close-panel" href="signup.html">Your Account</a></div>
-                                           </div>
-                                       </div>
-                               </li>
-                               <li id="postanad">
-                                       <div class="item-content">
-                                           <div class="item-inner">
-                                               <div class="item-title item-label">Post an Ad</div>
-                                           </div>
-                                       </div>
-                               </li>
-                               <li id="settings">
-                                       <div class="item-content">
-                                           <div class="item-inner">
-                                               <div class="item-title item-label">Settings</div>
-                                           </div>
-                                       </div>
-                               </li>
-                               <li id="logout">
-                                       <div class="item-content">
-                                           <div class="item-inner">
-                                               <div class="item-title item-label">
-                                                   <a class="close-panel" href="login.html">Logout</a></div>
-                                           </div>
-                                       </div>
-                               </li>
-                           </ul>
-                       </form>
-       
-                       </div>
-                       </div>
-                  
-               </div>
-           </div>
-           <div class="panel panel-right panel-cover">
-                <div class="page color-theme-green">
-                <div class="block">
-                    <p>No new notifications</p>
-                    </div>
-                </div>        
-        </div>
-        <div class="content-block">
-            <p>Left panel content goes here</p>
-        </div>
-    </div>
-
-    <!-- Views -->
-    <div class="views">
-        <!-- Your main view, should have "view-main" class -->
-        <div class="view view-main">
-            <!-- Top Navbar-->
-            <div class="navbar">
-                <div class="navbar-inner">
-                        <div class="left">
-                                <div class="icon-cell">
-                                        <p>
-                                          <a href="index.html">
-                                          <i class="f7-icons size-50">left</i>
-                                          </a> 
-                                        </p> 
-                                    </div>
-                                <!--
-                                  Right link contains only icon - additional "icon-only" class
-                                  Additional "open-panel" class tells app to open panel when we click on this link
-                                -->
-                                <a href="#" class="link icon-only open-panel"><i class="icon icon-bars"></i></a>
+<div data-page="sbc" class="page">
+    <form data-search-list=".list-block-search" data-search-in=".item-title" class="searchbar searchbar-init">
+        <div class="searchbar-input">
+             <input type="search" placeholder="Search in Department"><a href="#" class="searchbar-clear"></a>
+         </div><a href="#" class="searchbar-cancel">Cancel</a>
+    </form>
+    <div class="page-content">
+        <h2>
+            <div class="list-block-title">Shop by Category</div>
+        </h2>
+        <div class="list-block">
+            <form class="list">
+                <ul>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div class="item-title item-label">
+                                        <i class="fas fa-mobile-alt fa-fw"></i>
+                                    <a class="close-panel" href="signup.html">Mobiles, Computers</a></div>
                             </div>
-                    <!-- We need cool sliding animation on title element, so we have additional "sliding" class -->
-                    <div class="center sliding">Renter</div>
-                    <div class="right">
-                            <div class="icon-cell">
-                                    <a href="#" data-panel="right" class="link icon-only open-panel">
-                                <i class="f7-icons size-75">bell</i></a>
-                              </div>
-                            </div>
-                    
-                </div>
-            </div>
-            <!-- Pages container, because we use fixed-through navbar and toolbar, it has additional appropriate classes-->
-            <div class="pages navbar-through toolbar-through">
-                <!-- Page, "data-page" contains page name -->
-                <div data-page="sbc" class="page">
-                        <form data-search-list=".list-block-search" data-search-in=".item-title" class="searchbar searchbar-init">
-                                <div class="searchbar-input">
-                                  <input type="search" placeholder="Search in Department"><a href="#" class="searchbar-clear"></a>
-                                </div><a href="#" class="searchbar-cancel">Cancel</a>
-                              </form>
-                    <div class="page-content">
-                            <h2><div class ="list-block-title">Shop by Category</div></h2>
-                        <div class="list-block" >
-                            
-                                <form class="list">
-                                        <ul>
-                                                <li>
-                                                        <div class="item-content">
-                                                            <div class="item-inner">
-                                                                <div class="item-title item-label">
-                                                                        <a class="close-panel" href="signup.html">Mobiles,Computers</a></div>
-                                                            </div>
-                                                        </div>
-                                                        
-                                                </li>
-                                                <li>
-                                                        <div class="item-content">
-                                                            <div class="item-inner">
-                                                                <div class="item-title item-label">
-                                                                        <a class="close-panel" href="signup.html">TV,Appliances,Electronics</a></div>
-                                                            </div>
-                                                        </div>
-                                                        
-                                                </li>
-                                                <li>
-                                                            <div class="item-content">
-                                                                <div class="item-inner">
-                                                                    <div class="item-title item-label">
-                                                                            <a class="close-panel" href="signup.html">Men's Fashion</a></div>
-                                                                </div>
-                                                            </div>
-                                                            
-                                                </li>
-                                                        <li>
-                                                                <div class="item-content">
-                                                                    <div class="item-inner">
-                                                                        <div class="item-title item-label">
-                                                                                <a class="close-panel" href="signup.html">Women's Fashion</a></div>
-                                                                    </div>
-                                                                </div>
-                                                                
-                                                            </li>
-                                                            <li>
-                                                                    <div class="item-content">
-                                                                        <div class="item-inner">
-                                                                            <div class="item-title item-label">
-                                                                                    <a class="close-panel" href="signup.html">Home,Kitchen</a></div>
-                                                                        </div>
-                                                                    
-                                                                    </div>
-                                                                </li>
-                                                                <li>
-                                                                        <div class="item-content">
-                                                                            <div class="item-inner">
-                                                                                <div class="item-title item-label">
-                                                                                        <a class="close-panel" href="signup.html">Sports,Fitness,Bags,Luggage</a></div>
-                                                                            </div>
-                                                                    
-                                                                        </div>
-                                                                    </li>
-                                                                    <li>
-                                                                            <div class="item-content">
-                                                                                <div class="item-inner">
-                                                                                    <div class="item-title item-label">
-                                                                                            <a class="close-panel" href="signup.html">Toys,Baby Products,Kids Fashion</a></div>
-                                                                                </div>
-                                                                            
-                                                                            </div>
-                                                                        </li>
-                                                                        <li>
-                                                                                <div class="item-content">
-                                                                                    <div class="item-inner">
-                                                                                        <div class="item-title item-label">
-                                                                                                <a class="close-panel" href="signup.html">Cars,Motorbikes,Cycle</a></div>
-                                                                                    </div>
-                                                                                
-                                                                                </div>
-                                                                            </li>
-                                                                            <li>
-                                                                                    <div class="item-content">
-                                                                                        <div class="item-inner">
-                                                                                            <div class="item-title item-label">
-                                                                                                    <a class="close-panel" href="signup.html">Books and Stationery</a></div>
-                                                                                        </div>
-                                                                                    
-                                                                                    </div>
-                                                                            </li>
-                                        </ul>
-                                        </form>
                         </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+                    </li>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div class="item-title item-label">
+                                        <i class="fas fa-tv fa-fw"></i>
+                                    <a class="close-panel" href="signup.html">TV, Appliances, Electronics</a></div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div class="item-title item-label">
+                                        <i class="fas fa-male fa-fw"></i>
+                                    <a class="close-panel" href="signup.html">Men's Fashion</a></div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-title item-label">
+                                            <i class="fas fa-female fa-fw"></i>
+                                        <a class="close-panel" href="signup.html">Women's Fashion</a></div>
+                                </div>
+                            </div>
+                    </li>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div class="item-title item-label">
+                                        <i class="fas fa-home fa-fw"></i>
+                                    <a class="close-panel" href="signup.html">Home, Kitchen</a></div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div class="item-title item-label">
+                                        <i class="fas fa-suitcase fa-fw"></i>
+                                    <a class="close-panel" href="signup.html">Sports, Fitness,Bags, Luggage</a></div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div class="item-title item-label">
+                                        <i class="fas fa-child fa-fw"></i>
+                                <a class="close-panel" href="signup.html">Toys, Baby Products, Kids Fashion</a></div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div class="item-title item-label">
+                                        <i class="fas fa-car fa-fw"></i>
+                                <a class="close-panel" href="signup.html">Cars, Motorbikes, Cycle</a></div>
+                        </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div class="item-title item-label">
+                                        <i class="fas fa-book fa-fw"></i>
+                                    <a class="close-panel" href="signup.html">Books and Stationery</a></div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </form>
+         </div>
     </div>
+</div>

@@ -25,17 +25,17 @@
                             <div class="list-block">
                                 <!--<form class="list" id="signup" enctype="multipart/form-data">-->
                                     <ul>
-                                        <li class="item-content item-input">
-
+                                        <li>
+                                            <div class="item-content">
                                             <div class="item-inner">
                                                 <div class="item-title item-label">Ad Title</div>
                                                 <div class="item-input-wrap">
 
                                                     <input type="text" placeholder="What are you renting?" id="adtitle">
-                                                    <span class="input-clear-button"></span>
+                                                    <!-- <span class="input-clear-button"></span> -->
                                                 </div>
                                             </div>
-
+                                        </div>
                                         </li>
 
                                         <li>
@@ -44,7 +44,7 @@
                                                     <div class="item-title item-label">Photos</div>
                                                     <div class="item-input-wrap">
 
-                                                        <button placeholder= "Add a photo" id="adphoto_btn" onclick="open_dialog_for_image();" 
+                                                        <button placeholder= "Add a photo" id="adphoto_btn" onclick="open_dialog_for_image();" class="button button-raised button-fill"
                                                         >Upload</button>
                                                     </div>
                                                 </div>
@@ -56,8 +56,7 @@
                                                     <div class="item-title item-label"> Phone No.</div>
                                                     <div class="item-input-wrap">
 
-                                                        <input type ="number"  pattern="^[0-9]" title="Only Number" min="1"
-            required placeholder="Enter Your Phone No." id="phoneno">
+                                                        <input type ="number"  pattern="^[0-9]" title="Only Number" min="1" required placeholder="Enter Your Phone No." id="phoneno">
                                                     </div>
                                                 </div>
                                             </div>
@@ -91,7 +90,7 @@
                                         <li>
                                             <div class="item-content">
                                                 <div class="item-inner">
-                                                    <div class="item-title item-label"> Description</div>
+                                                    <div class="item-title item-label">Description</div>
                                                     <div class="item-input-wrap">
 
                                                         <textarea id="description" placeholder="Give us details about the product like make,model and condition" required minlength="20"></textarea>
@@ -106,7 +105,7 @@
                                                     <div class="item-title item-label">Rent per day</div>
                                                     <div class="item-input-wrap">
 
-                                                        <input type="number" min="1.00" max="10000.00" step="1.00" placeholder="100Rs/perday" id="rentperday" required />
+                                                        <input type="number" min="1.00" max="10000.00" step="1.00" placeholder="₹100/Day" id="rentperday" required />
                                                     </div>
                                                 </div>
                                             </div>
@@ -114,7 +113,7 @@
                                         <li>
                                             <div class="item-content">
                                                 <div class="item-inner">
-                                                    <div class="item-title item-label">Maximum no of days you want to rent</div>
+                                                    <div class="item-title item-label">Maximum no. of days you want to rent</div>
                                                     <div class="item-input-wrap">
 
                                                         <input type="number" min="1.00" max="30.00" step="1.00" placeholder="5" id="maxdays" required />
@@ -128,7 +127,7 @@
                                                     <div class="item-title item-label">Deposit Amount</div>
                                                     <div class="item-input-wrap">
 
-                                                        <input type="number" min="100.00" max="100000.00" step="1.00" placeholder="1000Rs" id="depositamt" required>
+                                                        <input type="number" min="100.00" max="100000.00" step="1.00" placeholder="₹1000" id="depositamt" required>
                                                     </div>
                                                 </div>
                                             </div>
@@ -156,7 +155,7 @@
                             </div>
                         </div>
                         <div class="content-block">
-                            <button id="adpost_btn" class="button button-fill">Post Ad
+                            <button id="adpost_btn" class="button button-raised button-fill" style="width:200px">Post Ad
                             </button>
                         </div>
                     </div>
