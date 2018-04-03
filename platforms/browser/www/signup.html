@@ -1,154 +1,123 @@
-<   <div class="statusbar-overlay"></div>
-
-    <!-- Panels overlay-->
-    <div class="panel-overlay"></div>
-    <!-- Left panel with reveal effect-->
-    <div class="panel panel-left panel-reveal">
-        <div class="content-block">
-            <p>Left panel content goes here</p>
-        </div>
-    </div>
-                <div class = "views">
-                   <div class = "view view-main">
-                            <div class = "navbar">
-                               <div class = "navbar-inner">
-                                  <div class = "left">
-                                    <div class="icon-cell">
-                                      <p>
-                                        <a href="index.html">
-                                        <i class="f7-icons size-50">left</i>
-                                          Back
-                                        </a> 
-                                      </p> 
-                                    </div>
-                                  </div>
-                                  <div class = "center">Renter</div>
-                                  <div class = "right"> </div>
-                               </div>
-                            </div>
-                            <div class = "pages navbar-through">
-                         <div data-page = "signup" class = "page navbar-fixed">
-                           <div class="page-content">
-                            <div class = "block">
-                                <div class = "content-block" >
-                               <div class = "content-block-title">Sign Up</div>
-                               <div class = "list-block">
-                                 <form class="list" id="signup">
-                                  <ul>
-                                      <li class = "item-content item-input">
-
-                                             <div class = "item-inner">
-                                                <div class="item-title item-label">Name</div>
-                                                <div class = "item-input-wrap">
-                                                    
-                                                   <input type = "text" placeholder = "Enter your name" id="name" minlength="3" required>
-                                                   <span class="input-clear-button"></span>
-                                                </div>
-                                             </div>
-
-                                       </li> 
-                                     
-                                     <li>
-                                        <div class = "item-content">
-                                           <div class = "item-inner">
-                                              <div class="item-title item-label">Email</div>
-                                              <div class = "item-input-wrap">
-                                                 
-                                                 <input type = "email" autocomplete="on" required placeholder = "Enter your e-mail" id="email">
-                                              </div>
-                                           </div>
-                                        </div>
-                                     </li>
-                                     <li>
-                                        <div class = "item-content">
-                                           <div class = "item-inner">
-                                              <div class="item-title item-label"> Phone No.</div>
-                                              <div class = "item-input-wrap">
-                                                 <input type ="number"  pattern="^[0-9]" title="Only Number" min="1" required placeholder="Enter Your Phone No." id="phoneno">
-                                              </div>
-                                           </div>
-                                        </div>
-                                     </li>
-                                     <li>
-                                        <div class = "item-content">
-                                           <div class = "item-inner">
-                                              <div class="item-title item-label">Password</div>
-                                              <div class = "item-input-wrap">
-                                                 
-                                                 <input type = "password" placeholder = "Enter your password" id="password" minlength="8" required>
-                                              </div>
-                                           </div>
-                                        </div>
-                                     </li>
-                                     
-                                     <li>
-                                        <div class = "item-content">
-                                           <div class = "item-inner">
-                                              <div class="item-title item-label"> Confirm Password</div>
-                                              <div class = "item-input-wrap">
-                                                  
-                                                 <input type = "password" placeholder = "Confirm your password" minlength="8" id="cpassword" required>
-                                              </div>
-                                           </div>
-                                        </div>
-                                     </li>
-                                     <li>
-                                        <div class = "item-content">
-                                           <div class = "item-inner">
-                                              <div class="item-title item-label"> Gender</div>
-                                              <div class = "item-input-wrap">
-                                                  
-                                                 <select id="gender">
-                                                    <option>Male</option>
-                                                    <option>Female</option>
-                                                 </select>
-                                              </div>
-                                           </div>
-                                        </div>
-                                     </li>
-                                     
-                                     <li>
-                                        <div class = "item-content">
-                                           <div class = "item-inner">
-                                              <div class="item-title item-label"> Date of Birth</div>
-                                              <div class = "item-input-wrap">
-                                                  
-                                                 <input type ="date" value="2018-03-12" id="dob">
-                                              </div>
-                                           </div>
-                                        </div>
-                                     </li>
-                                     <li>
-                                      <div class = "item-content">
-                                         <div class = "item-inner">
-                                            <div class="item-title item-label">City</div>
-                                            <div class = "item-input-wrap">
-                                                
-                                               <select id="city">
-                                                  <option>Mumbai</option>
-                                                  <option>Delhi</option>
-                                                  <option>Chennai</option>
-                                                  <option>Kolkata</option>
-                                                  <option>Banglore</option>
-                                                  <option>Pune</option>
-                                               </select>
-                                            </div>
-                                         </div>
-                                      </div>
-                                   </li>
-                                   
-                                  </ul>
-                                </form>
-                               </div>
-                            </div>
-                            <div class = "content-block" >
-                              <div class="row">
-                                <button id="signup_btn" class="button button-raised button-fill" style="width:200px" >Signup</button>
+<div class="views">
+  <div class="view view-main">
+    <div class="pages navbar-through">
+      <div data-page="signup" class="page navbar-fixed">
+        <div class="page-content">
+          <div class="block">
+            <div class="content-block">
+              <div class="content-block-title">Sign Up
+              </div>
+              <div class="list-block">
+                <form class="list" id="signup">
+                  <ul>
+                    <li class="item-content item-input">
+                      <div class="item-inner">
+                        <div class="item-title item-label">Name
+                        </div>
+                        <div class="item-input-wrap">
+                          <input type="text" placeholder="Enter your name" id="name" minlength="3" required>
                         </div>
                       </div>
-                              </div>
-                         </div>
+                    </li>
+                    <li>
+                      <div class="item-content">
+                        <div class="item-inner">
+                          <div class="item-title item-label">Email
+                          </div>
+                            <div class="item-input-wrap">
+                              <input type="email" autocomplete="on" required placeholder="Enter your e-mail" id="email">
+                            </div>
+                          </div>
+                        </div>
+                    </li>
+                    <li>
+                      <div class="item-content">
+                          <div class="item-inner">
+                            <div class="item-title item-label"> Phone No.
+                            </div>
+                            <div class="item-input-wrap">
+                              <input type="number" pattern="^[0-9]" title="Only Number" min="1" required placeholder="Enter Your Phone No." id="phoneno">
+                            </div>
+                          </div>
                       </div>
-                   </div>
-                </div>
-                </div>
+                    </li>
+                    <li>
+                      <div class="item-content">
+                        <div class="item-inner">
+                          <div class="item-title item-label">Password
+                          </div>
+                          <div class="item-input-wrap">
+                            <input type="password" placeholder="Enter your password" id="password" minlength="8" required>
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="item-content">
+                        <div class="item-inner">
+                          <div class="item-title item-label">Confirm Password
+                          </div>
+                          <div class="item-input-wrap">
+                            <input type="password" placeholder="Confirm your password" minlength="8" id="cpassword" required>
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="item-content">
+                        <div class="item-inner">
+                          <div class="item-title item-label">Gender
+                          </div>
+                            <div class="item-input-wrap">
+                              <select id="gender">
+                                <option>Male</option>
+                                <option>Female</option>
+                              </select>
+                            </div>
+                          </div>
+                        </div>
+                    </li>
+                    <li>
+                      <div class="item-content">
+                        <div class="item-inner">
+                          <div class="item-title item-label">Date of Birth
+                          </div>
+                          <div class="item-input-wrap">
+                            <input type="date" value="2018-03-12" id="dob">
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="item-content">
+                        <div class="item-inner">
+                          <div class="item-title item-label">City
+                          </div>
+                          <div class="item-input-wrap">
+                            <select id="city">
+                              <option>Mumbai</option>
+                              <option>Delhi</option>
+                              <option>Chennai</option>
+                              <option>Kolkata</option>
+                              <option>Banglore</option>
+                              <option>Pune</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                  </ul>
+                </form>
+              </div>
+            </div>
+            <div class="content-block">
+              <div class="row">
+                <button id="signup_btn" class="button button-raised button-fill" style="width:200px">Signup</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
