@@ -3,7 +3,7 @@ var base_url = 'http://192.168.1.2/CI/index.php/';
 // Initialize app
 var myApp = new Framework7({
     pushState: false,
-    swipeBackPage: false,
+    swipeBackPage: true,
     preloadPreviousPage: false,
     uniqueHistory: true,
     uniqueHistoryIgnoreGetParameters: true,
@@ -40,7 +40,8 @@ $$(document).on('deviceready', function() {
 
 // Option 1. Using page callback for page (for "about" page in this case) (recommended way):
 myApp.onPageInit('home', function(page) {
-    $("#searchb").blur(function() {
+    $("#searchb").blur(function()
+     {
         var query = document.getElementById('searchb').value;
         console.log("Searched for:" + query);
         $.ajax({
@@ -134,7 +135,18 @@ myApp.onPageInit('home', function(page) {
 })
 
 myApp.onPageInit('login', function(page) {
+    var input = document.getElementById("password");
 
+    // Execute a function when the user releases a key on the keyboard
+    input.addEventListener("keyup", function(event) {
+      // Cancel the default action, if needed
+      event.preventDefault();
+      // Number 13 is the "Enter" key on the keyboard
+      if (event.keyCode === 13) {
+        // Trigger the button element with a click
+        document.getElementById("signin_btn").click();
+      }
+    });
     $("#signin_btn").click(function() {
         var email = new RegExp(/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
         $.emailid = $('#email').val();
@@ -164,7 +176,7 @@ myApp.onPageInit('login', function(page) {
                         //disp_name.innerHTML=nam;
                         goto_page('home.html');
                         mainView.showNavbar();
-
+                        alert('Login Sucessful');
                         // myApp.addNotification({
                         //     title: 'Default notification',
                         //     message: 'This is default notification with title and message'
@@ -172,7 +184,7 @@ myApp.onPageInit('login', function(page) {
 
                     } else {
                         console.log(res.api_msg);
-                        alert('Hello');
+                        alert('Please check your email or password');
 
                     }
                     console.log(res.status);
@@ -191,6 +203,17 @@ myApp.onPageInit('login', function(page) {
 })
 
 myApp.onPageInit('signup', function(page) {
+    // var MyDate = new Date();
+    // var MyDateString;
+    
+    // MyDate.setDate(MyDate.getDate() + 20);
+    
+    // MyDateString = MyDate.getFullYear() + '-'
+    //              + ('0' + (MyDate.getMonth()+1)).slice(-2) + '-' 
+    //              + ('0' + MyDate.getDate()).slice(-2);
+                 
+    // document.getElementById("dob").innerHTML =MyDateString;
+    // console.log(MyDateString);
     $("#signup_btn").click(function() {
         $.n = $('#name').val();
         if ($.n == "null" || $.n == "") {
@@ -234,8 +257,9 @@ myApp.onPageInit('signup', function(page) {
                 success: function(res) {
                     if (res.status == 'success') {
                         goto_page('home.html');
+                        alert('Signup Sucessful');
                     } else {
-                        console.log(res.api_msg);
+                        Alert(res.api_msg);
                     }
                     console.log(res.status);
                 },
