@@ -1,6 +1,5 @@
 var base_url = 'http://192.168.1.2/CI/index.php/';
 
-// Initialize app
 var myApp = new Framework7({
     pushState: false,
     swipeBackPage: true,
@@ -13,18 +12,13 @@ var myApp = new Framework7({
 
 });
 
-// If we need to use custom DOM library, let's save it to $$ variable:
-// var app= new Framework7();
 var $$ = Dom7;
 
-
-// Add view
 var mainView = myApp.addView('.view-main', {
     // Because we want to use dynamic navbar, we need to enable it for this view:
     // dynamicNavbar: true
 });
 
-// Handle Cordova Device Ready Event
 $$(document).on('deviceready', function() {
     //  mainView.hideNavbar();
     goto_page('login.html');
@@ -35,10 +29,6 @@ $$(document).on('deviceready', function() {
     // }
 });
 
-
-// Now we need to run the code that will be executed only for About page.
-
-// Option 1. Using page callback for page (for "about" page in this case) (recommended way):
 myApp.onPageInit('home', function(page) {
     $("#searchb").blur(function()
      {
@@ -345,10 +335,6 @@ myApp.onPageInit('index', function(page) {
     })
 })
 
-
-
-
-// Option 2. Using one 'pageInit' event handler for all pages:
 $$(document).on('pageInit', function(e) {
     // Get page data from event data
     var page = e.detail.page;
@@ -361,8 +347,6 @@ $$(document).on('pageInit', function(e) {
     });
 
 })
-
-
 
 function goto_page(page) {
     mainView.router.load({
@@ -398,51 +382,6 @@ myApp.onPageInit('account_details', function(page) {
     });
 
 })
-var mySwiper = myApp.swiper('.swiper-container', {
-    pagination: '.swiper-pagination'
-})
-
-//myApp.onPageInit('home', function (page) {
-
-
-/*
-        if(true){
-            $.ajax({
-                url: base_url+'welcome/login',
-                type: 'POST',
-                crossDomain: true,
-                data: {
-                    email : $("#email").val(),password : $("#password").val(),
-                },
-                success: function(res){
-                    if (res.status == 'success') {
-                        console.log(res.user_details);
-                        var username=document.getElementById('username');
-                        var nam=res.user_details["name"];
-                        username.innerHTML=nam;
-                        console.log(nam);
-                        var disp_name=document.getElementById('disp_name');
-                        //var nam1=res.user_details["name"];
-                        //disp_name.innerHTML=nam;
-                        goto_page('home.html');
-                            mainView.showNavbar();
-
-                            // myApp.addNotification({
-                            //     title: 'Default notification',
-                            //     message: 'This is default notification with title and message'
-                            //  });
-                 
-                    } else {
-                        console.log(res.api_msg);
-                       alert('Hello');
-
-                    }
-                    console.log(res.status);
-                },
-            });
-        })
-    })*/
-
 
 function open_dialog_for_image() {
     console.log("click event triggered");
