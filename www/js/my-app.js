@@ -362,7 +362,7 @@ myApp.onPageInit('account_details', function(page) {
         data: {},
         success: function(res) {
             if (res.status == 'success') {
-                console.log(res.user_details);
+                console.log(res.user_details['userid']);
                 var disp_name = document.getElementById('disp_name');
                 disp_name.value = res.user_details["name"];
                 var emailid = document.getElementById('disp_email');
@@ -381,6 +381,78 @@ myApp.onPageInit('account_details', function(page) {
         },
     });
 
+    $("#updatedetails_btn").click(function() {
+        $.ajax({
+            url: base_url + 'welcome/account_details',
+            type: 'POST',
+            data: {},
+            success: function(res) {
+                if (res.status == 'success') {
+                    storelocal(res.user_details);
+                } else {
+                    console.log(res.api_msg);
+                }
+            },
+        });
+
+        function storelocal(dbinput)
+        {
+            var userid = dbinput['userid']
+            var newphno = $$("#disp_phoneno").val()
+            var newcity = $$("#disp_city").val()
+            if(newphno == dbinput['phoneno'])
+            {
+                if(newcity == dbinput['city'])
+                {
+                    alert('No details changed. Details up to date')
+                }
+                else
+                {
+                    dbinput['phoneno'] = newphno;
+                    dbinput['city'] = newcity;
+                    $.ajax({
+                        url: base_url + 'welcome/updatedetails',
+                        type: 'POST',
+                        data: {
+                            userid: userid,
+                            phoneno: newphno,
+                            city: newcity,
+                        },
+                        success: function(res) {
+                            if (res.status == 'success') {
+                                alert('Details Updated');
+                            } else {
+                                Alert(res.api_msg);
+                            }
+                            console.log(res.status);
+                        },
+                    });
+                }   
+            }
+            else
+            {
+                dbinput['phoneno'] = newphno;
+                dbinput['city'] = newcity;
+                $.ajax({
+                    url: base_url + 'welcome/updatedetails',
+                    type: 'POST',
+                    data: {
+                        userid: userid,
+                        phoneno: newphno,
+                        city: newcity,
+                    },
+                    success: function(res) {
+                        if (res.status == 'success') {
+                            alert('Details Updated');
+                        } else {
+                            Alert(res.api_msg);
+                        }
+                        console.log(res.status);
+                    },
+                });
+            }
+        }
+    });
 })
 
 function open_dialog_for_image() {
