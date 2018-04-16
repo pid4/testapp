@@ -1,4 +1,4 @@
-var base_url = 'http://192.168.1.2/CI/index.php/';
+var base_url = 'http://localhost/CI/index.php/';
 
 var myApp = new Framework7({
     pushState: false,
@@ -20,7 +20,7 @@ var mainView = myApp.addView('.view-main', {
 });
 
 $$(document).on('deviceready', function() {
-    //  mainView.hideNavbar();
+    mainView.hideNavbar();
     goto_page('login.html');
     // if(token_data == undefined){ 
     //     goto_page('login.html');
@@ -30,99 +30,131 @@ $$(document).on('deviceready', function() {
 });
 
 myApp.onPageInit('home', function(page) {
-    $("#searchb").blur(function()
-     {
-        var query = document.getElementById('searchb').value;
-        console.log("Searched for:" + query);
-        $.ajax({
-            url: base_url + 'welcome/search',
-            type: 'POST',
-            crossDomain: true,
-            data: {
-                query: query,
-            },
-            success: function(res) {
-                if (res.status == 'success') {
-                    console.log(res.user_details);
-                    console.log("Successful in Searching in ajax for " + query);
-                    var html = '';
-                    $("#product_listing").empty();
-                    $.each(res.user_details, function(index, value){
-                        html += '<div class="card facebook-card">' +
+    $.ajax({
+        url: base_url + 'welcome/home',
+        type: 'POST',
+        crossDomain: true,
+        data: {
+
+        },
+        success: function(res) {
+            if (res.status == 'success') {
+                console.log(res.adpost);
+                var html = '';
+                $("#product_listing").empty();
+                $.each(res.adpost, function(index, value) {
+                html += '<div class="card facebook-card">' +
                             '<div class="card-header">' +
-                            // '<div class="facebook-avatar"><img src="css/hi/images/'+hatch1.jpg+'" width="34" height="34"></div>'+
-                            '<div class="facebook-avatar"><img src="css/hi/images/hatch1.jpg" width="34" height="34"></div>' +
-                            '<div class="facebook-name">'+value.adtitle+'</div>' +
-                            '<div class="facebook-date">'+value.category+'</div>' +
+                                // '<div class="facebook-avatar"><img src="css/hi/images/'+hatch1.jpg+'" width="34" height="34"></div>'+
+                                '<div class="facebook-avatar">'+
+                                    '<img src="css/hi/images/hatch1.jpg" width="34" height="34">' +
+                                '</div>' +
+                                '<div class="facebook-name">' +
+                                    value.adtitle +
+                                '</div>' +
+                                '<div class="facebook-date">'
+                                    + value.category + 
+                                '</div>' +
                             '</div>' +
                             '<div class="card-content">' +
-                            '<div class="card-content-inner">' +
-                            '<p>What a nice car!!</p>' +
-                            '<div class="swiper-container swiper-init">' +
-                            '<div class="swiper-wrapper">' +
-                            '<div class="swiper-slide">' +
-                            '<img src="css/hi/images/hatch1.jpg" max-height="100%" max-width="100%">' +
+                                '<div class="card-content-inner">' +
+                                    '<p>What a nice car!!</p>' +
+                                    '<div class="swiper-container swiper-init">' +
+                                        '<div class="swiper-wrapper">' +
+                                            '<div class="swiper-slide">' +
+                                                '<img src="css/hi/images/hatch1.jpg" max-height="100%" max-width="100%">' +
+                                            '</div>' +
+                                            '<div class="swiper-slide">' +
+                                                '<img src="css/hi/images/hatch2.jpg" max-height="100%" max-width="100%">' +
+                                            '</div>' +
+                                            '<div class="swiper-slide">' +
+                                                '<img src="css/hi/images/hatch3.jpg" max-height="100%" max-width="100%">' +
+                                            '</div>' +
+                                            '<div class="swiper-slide">' +
+                                                '<img src="css/hi/images/hatch1.jpg" max-height="100%" max-width="100%">' +
+                                            '</div>' +
+                                            '<div class="swiper-slide">' +
+                                                '<img src="css/hi/images/hatch2.jpg" max-height="100%" max-width="100%">' +
+                                            '</div>' +
+                                        '</div>' +
+                                    '</div>' +
+                                '</div>' +
                             '</div>' +
-                            '<div class="swiper-slide">' +
-                            '<img src="css/hi/images/hatch2.jpg" max-height="100%" max-width="100%">' +
+                            '<div class="card-footer">' +
+                                '<a href="#" class="link">Add to Wishlist</a><a href="product_details.html" class="link">More details</a>' +
                             '</div>' +
-                            '<div class="swiper-slide">' +
-                            '<img src="css/hi/images/hatch3.jpg" max-height="100%" max-width="100%">' +
-                            '</div>' +
-                            '</div>' +
-                            '</div>' +
-                            '</div>' +
-                            '</div>' +
-                            '<div class="card-footer"><a href="#" class="link">Add to Wishlist</a><a href="product_details.html" class="link">More details</a></div>' +
-                            '</div>';
-                    })
-                    $("#product_listing").html(html);
-                    console.log(html);
-                } else {
-                    console.log(res.api_msg);
-                    alert('Error inn ajax');
+                        '</div>';
+                })
+                $("#product_listing").html(html);
+                            console.log(html);
+                        } else {
+                            console.log(res.api_msg);
+                            alert('Error in ajax');
 
-                }
-                console.log(res.status);
-            },
-        });
-        // $.each(res.user_details, function(index, value){
-        //     html += '<div class="card facebook-card">' +
-        //         '<div class="card-header">' +
-        //         // '<div class="facebook-avatar"><img src="css/hi/images/'+hatch1.jpg+'" width="34" height="34"></div>'+
-        //         '<div class="facebook-avatar"><img src="css/hi/images/hatch1.jpg" width="34" height="34"></div>' +
-        //         '<div class="facebook-name">'+value.adtitle+'</div>' +
-        //         '<div class="facebook-date">'+value.category+'</div>' +
-        //         '</div>' +
-        //         '<div class="card-content">' +
-        //         '<div class="card-content-inner">' +
-        //         '<p>What a nice car!!</p>' +
-        //         '<div class="swiper-container swiper-init">' +
-        //         '<div class="swiper-wrapper">' +
-        //         '<div class="swiper-slide">' +
-        //         '<img src="css/hi/images/hatch1.jpg" max-height="100%" max-width="100%">' +
-        //         '</div>' +
-        //         '<div class="swiper-slide">' +
-        //         '<img src="css/hi/images/hatch2.jpg" max-height="100%" max-width="100%">' +
-        //         '</div>' +
-        //         '<div class="swiper-slide">' +
-        //         '<img src="css/hi/images/hatch3.jpg" max-height="100%" max-width="100%">' +
-        //         '</div>' +
-        //         '</div>' +
-        //         '</div>' +
-        //         '</div>' +
-        //         '</div>' +
-        //         '<div class="card-footer"><a href="#" class="link">Add to Wishlist</a><a href="product_details.html" class="link">More details</a></div>' +
-        //         '</div>';
-        // })
+                        }
+                        console.log(res.status);
+                    }
+            });
 
+    
+    $("#searchb").blur(function() {
+            var query = document.getElementById('searchb').value;
+            console.log("Searched for:" + query);
+            $.ajax({
+                    url: base_url + 'welcome/search',
+                    type: 'POST',
+                    crossDomain: true,
+                    data: {
+                        query: query,
+                    },
+                    success: function(res) {
+                        if (res.status == 'success') {
+                            console.log(res.user_details);
+                            console.log("Successful in Searching in ajax for " + query);
+                            var html = '';
+                            $("#product_listing").empty();
+                            $.each(res.user_details, function(index, value) {
+                                html += '<div class="card facebook-card">' +
+                                    '<div class="card-header">' +
+                                    // '<div class="facebook-avatar"><img src="css/hi/images/'+hatch1.jpg+'" width="34" height="34"></div>'+
+                                    '<div class="facebook-avatar"><img src="css/hi/images/hatch1.jpg" width="34" height="34"></div>' +
+                                    '<div class="facebook-name">' + value.adtitle + '</div>' +
+                                    '<div class="facebook-date">' + value.category + '</div>' +
+                                    '</div>' +
+                                    '<div class="card-content">' +
+                                    '<div class="card-content-inner">' +
+                                    '<p>What a nice car!!</p>' +
+                                    '<div class="swiper-container swiper-init">' +
+                                    '<div class="swiper-wrapper">' +
+                                    '<div class="swiper-slide">' +
+                                    '<img src="css/hi/images/hatch1.jpg" max-height="100%" max-width="100%">' +
+                                    '</div>' +
+                                    '<div class="swiper-slide">' +
+                                    '<img src="css/hi/images/hatch2.jpg" max-height="100%" max-width="100%">' +
+                                    '</div>' +
+                                    '<div class="swiper-slide">' +
+                                    '<img src="css/hi/images/hatch3.jpg" max-height="100%" max-width="100%">' +
+                                    '</div>' +
+                                    '</div>' +
+                                    '</div>' +
+                                    '</div>' +
+                                    '</div>' +
+                                    '<div class="card-footer"><a href="#" class="link">Add to Wishlist</a><a href="product_details.html" class="link">More details</a></div>' +
+                                    '</div>';
+                            })
+                            $("#product_listing").html(html);
+                            console.log(html);
+                        } else {
+                            console.log(res.api_msg);
+                            alert('Error inn ajax');
 
-
+                        }
+                        console.log(res.status);
+                    }
+            });
+            })
 
     })
-
-    // Do something here for "about" page
-})
 
 myApp.onPageInit('login', function(page) {
     var input = document.getElementById("password");
@@ -246,7 +278,7 @@ myApp.onPageInit('signup', function(page) {
                 },
                 success: function(res) {
                     if (res.status == 'success') {
-                        goto_page('home.html');
+                        goto_page('login.html');
                         alert('Signup Sucessful');
                     } else {
                         Alert(res.api_msg);
@@ -362,7 +394,7 @@ myApp.onPageInit('account_details', function(page) {
         data: {},
         success: function(res) {
             if (res.status == 'success') {
-                console.log(res.user_details['userid']);
+                console.log(res);
                 var disp_name = document.getElementById('disp_name');
                 disp_name.value = res.user_details["name"];
                 var emailid = document.getElementById('disp_email');
@@ -380,7 +412,6 @@ myApp.onPageInit('account_details', function(page) {
             }
         },
     });
-
     $("#updatedetails_btn").click(function() {
         $.ajax({
             url: base_url + 'welcome/account_details',
@@ -408,8 +439,6 @@ myApp.onPageInit('account_details', function(page) {
                 }
                 else
                 {
-                    dbinput['phoneno'] = newphno;
-                    dbinput['city'] = newcity;
                     $.ajax({
                         url: base_url + 'welcome/updatedetails',
                         type: 'POST',
@@ -431,8 +460,6 @@ myApp.onPageInit('account_details', function(page) {
             }
             else
             {
-                dbinput['phoneno'] = newphno;
-                dbinput['city'] = newcity;
                 $.ajax({
                     url: base_url + 'welcome/updatedetails',
                     type: 'POST',
@@ -445,15 +472,85 @@ myApp.onPageInit('account_details', function(page) {
                         if (res.status == 'success') {
                             alert('Details Updated');
                         } else {
-                            Alert(res.api_msg);
+                            alert(res.api_msg);
                         }
                         console.log(res.status);
                     },
                 });
             }
         }
-    });
+    })
 })
+
+myApp.onPageInit('sbc', function(page) {
+    $("a").on("click", function (e) {
+
+    // Id of the element that was clicked
+    var elementId = $(this).attr("id");
+    alert(elementId);
+            $.ajax({
+                    url: base_url + 'welcome/sbc',
+                    type: 'POST',
+                    crossDomain: true,
+                    data: {
+                        category:elementId,
+                    },
+                    success: function(res) {
+                        if (res.status == 'success') {
+                            console.log("success in sbc");
+                            console.log(res.user_details);
+                            console.log(res.api_msg);
+                            var html = '';
+                            $("#product_listing").empty();
+                            $.each(res.user_details, function(index, value) {
+                                html += '<div class="card facebook-card">' +
+                                    '<div class="card-header">' +
+                                    // '<div class="facebook-avatar"><img src="css/hi/images/'+hatch1.jpg+'" width="34" height="34"></div>'+
+                                    '<div class="facebook-avatar"><img src="css/hi/images/hatch1.jpg" width="34" height="34"></div>' +
+                                    '<div class="facebook-name">' + value.adtitle + '</div>' +
+                                    '<div class="facebook-date">' + value.category + '</div>' +
+                                    '</div>' +
+                                    '<div class="card-content">' +
+                                    '<div class="card-content-inner">' +
+                                    '<p>What a nice car!!</p>' +
+                                    '<div class="swiper-container swiper-init">' +
+                                    '<div class="swiper-wrapper">' +
+                                    '<div class="swiper-slide">' +
+                                    '<img src="css/hi/images/hatch1.jpg" max-height="100%" max-width="100%">' +
+                                    '</div>' +
+                                    '<div class="swiper-slide">' +
+                                    '<img src="css/hi/images/hatch2.jpg" max-height="100%" max-width="100%">' +
+                                    '</div>' +
+                                    '<div class="swiper-slide">' +
+                                    '<img src="css/hi/images/hatch3.jpg" max-height="100%" max-width="100%">' +
+                                    '</div>' +
+                                    '</div>' +
+                                    '</div>' +
+                                    '</div>' +
+                                    '</div>' +
+                                    '<div class="card-footer"><a href="#" class="link">Add to Wishlist</a><a href="product_details.html" class="link">More details</a></div>' +
+                                    '</div>';
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                                })
+                            $("#product_listing").html(html);
+                            console.log(html);
+                        } else {
+                            console.log(res.api_msg);
+                            alert('Error inn ajax');
+
+                        }
+                        console.log(res.status);
+                    }
+            });
+            });
+        
+    })
 
 function open_dialog_for_image() {
     console.log("click event triggered");
