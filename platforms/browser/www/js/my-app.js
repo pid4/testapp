@@ -30,6 +30,8 @@ $$(document).on('deviceready', function() {
 });
 
 myApp.onPageInit('home', function(page) {
+    
+
     $.ajax({
         url: base_url + 'welcome/home',
         type: 'POST',
@@ -43,22 +45,42 @@ myApp.onPageInit('home', function(page) {
                 var html = '';
                 $("#product_listing").empty();
                 $.each(res.adpost, function(index, value) {
+                    var MyDate =value.postdate;
+                    var MyDateYear;
+                    var MyDateMonth;
+                    var MyDateDate;
+                    var MyDateString;
+                    MyDateYear = value.postdate.slice(0,4)
+                    MyDateMonth = value.postdate.slice(5,7)
+                    MyDateDate = value.postdate.slice(8,10)
+                    MyDateString =  MyDateDate + '-' +  MyDateMonth + '-' + MyDateYear;
+                     console.log(MyDateString)
                 html += '<div class="card facebook-card">' +
                             '<div class="card-header">' +
                                 // '<div class="facebook-avatar"><img src="css/hi/images/'+hatch1.jpg+'" width="34" height="34"></div>'+
                                 '<div class="facebook-avatar">'+
-                                    '<img src="css/hi/images/hatch1.jpg" width="34" height="34">' +
+                                   value.category +
                                 '</div>' +
                                 '<div class="facebook-name">' +
-                                    value.adtitle +
-                                '</div>' +
-                                '<div class="facebook-date">'
-                                    + value.category + 
+                                '' +
+                            '</div>' +
+                                '<div class="facebook-date" style="text-align: right;">'+
+                                     MyDateString + 
                                 '</div>' +
                             '</div>' +
+                            '<div class="card-header">' +
+                            '<div class="facebook-avatar">'+
+                             ''+
+                         '</div>' +
+                            '<div class="facebook-name">' +
+                                value.adtitle +
+                            '</div>' +
+                            '<div class="facebook-date">'+
+                            '' + 
+                        '</div>' +
+                        '</div>' +
                             '<div class="card-content">' +
                                 '<div class="card-content-inner">' +
-                                    '<p>What a nice car!!</p>' +
                                     '<div class="swiper-container swiper-init">' +
                                         '<div class="swiper-wrapper">' +
                                             '<div class="swiper-slide">' +
@@ -81,7 +103,8 @@ myApp.onPageInit('home', function(page) {
                                 '</div>' +
                             '</div>' +
                             '<div class="card-footer">' +
-                                '<a href="#" class="link">Add to Wishlist</a><a href="product_details.html" class="link">More details</a>' +
+                                '<a href="#" class="link">₹'+value.rentperday+'/Day</a>' +
+                                '<a href="#" class="link"  onclick="moredetails('+value.adid+')">More details</a>' +
                             '</div>' +
                         '</div>';
                 })
@@ -95,6 +118,7 @@ myApp.onPageInit('home', function(page) {
                         console.log(res.status);
                     }
             });
+    
 
     
     $("#searchb").blur(function() {
@@ -139,7 +163,7 @@ myApp.onPageInit('home', function(page) {
                                     '</div>' +
                                     '</div>' +
                                     '</div>' +
-                                    '<div class="card-footer"><a href="#" class="link">Add to Wishlist</a><a href="product_details.html" class="link">More details</a></div>' +
+                                    '<div class="card-footer"><a href="#" class="link">Add to Wishlist</a><a href="product_details.html" id="'+value.adid+'">More details</a></div>' +
                                     '</div>';
                             })
                             $("#product_listing").html(html);
@@ -216,7 +240,7 @@ myApp.onPageInit('login', function(page) {
     })
     $("#signup_page").click(function() {
         // app.dialog.alert('Hello');
-        goto_page("signup.html");
+        goto_page("adpost.html");
     })
     // $$('.open-alert').on('click', function () {
     //     app.dialog.alert('Hello');
@@ -300,12 +324,12 @@ myApp.onPageInit('adpost', function(page) {
 
         $.ad = $('#adtitle').val();
         if ($.ad == "null" || $.ad == "") {
-            alert("Please enter the Adtitle");
+            alert("Please enter the Ad Title");
             return false;
         }
         $.x = $('#phoneno').val();
         if ($.x.length != 10) {
-            alert("Enter 10 digit mobileno");
+            alert("Enter 10 digit mobile No.");
             return false;
         }
         $.d = $('#description').val();
@@ -320,11 +344,11 @@ myApp.onPageInit('adpost', function(page) {
         }
         $.m = $('#maxdays').val();
         if ($.m == "null" || $.m == "") {
-            alert("Enter max no of days");
+            alert("Enter max no. of days");
             return false;
         }
         if ($.m > 30) {
-            alert("Entered limit is not correct");
+            alert("Max. no of days item can be rented is 30");
             return false;
         }
         $.a = $('#depositamt').val();
@@ -366,6 +390,8 @@ myApp.onPageInit('index', function(page) {
         goto_page('home.html');
     })
 })
+
+
 
 $$(document).on('pageInit', function(e) {
     // Get page data from event data
@@ -647,3 +673,64 @@ function imagead_onError_file(error) {
 function j2s(json) {
     return JSON.stringify(json);
 }
+
+function moredetails(id){  
+    alert(id+" is clicked");
+    $.ajax({
+            url: base_url + 'welcome/moredetails',
+            type: 'POST',
+            data: {
+                id:id,
+            },
+        });
+    goto_page('product_details.html');
+}
+
+myApp.onPageInit('product_details', function(page) {
+    $.ajax({
+        url: base_url + 'welcome/product_details',
+        type: 'POST',
+        crossDomain: true,
+        data: {
+
+        },
+        success: function(res) {
+                        if (res.status == 'success') {
+                            console.log(res.ad_details);
+                            var category = document.getElementById('adtitle');
+                            category.innerHTML = res.ad_details["adtitle"];
+                            var date = document.getElementById('postdate');
+                            var MyDate =res.ad_details["postdate"];
+                            var MyDateYear;
+                            var MyDateMonth;
+                            var MyDateDate;
+                            var MyDateString;
+                            MyDateYear = MyDate.slice(0,4)
+                            MyDateMonth = MyDate.slice(5,7)
+                            MyDateDate = MyDate.slice(8,10)
+                            MyDateString =  MyDateDate + '-' +  MyDateMonth + '-' + MyDateYear;
+                            date.value = MyDateString;
+                            postdate.innerHTML = "Ad Posted on: "+MyDateString;
+                            var category = document.getElementById('category');
+                            category.innerHTML = "Category: "+res.ad_details["category"];
+                            var category = document.getElementById('posted by');
+                            category.innerHTML = "Posted By: "+res.user_name["name"];
+                            console.log(res.user_name)
+                            var category = document.getElementById('city');
+                            category.innerHTML = "City: "+res.ad_details["city"];
+                            var category = document.getElementById('description');
+                            category.innerHTML = res.ad_details["description"];
+                            var category = document.getElementById('maxdays');
+                            category.innerHTML = "Max days: "+res.ad_details["maxdays"];
+                            var category = document.getElementById('depositamt');
+                            category.innerHTML = "Deposit amount: ₹"+res.ad_details["depositamt"];
+                            var category = document.getElementById('rentperday');
+                            category.innerHTML = "Rent per day: ₹" +res.ad_details["rentperday"]+"/Day";
+                        } else {
+                            alert(res.api_msg);
+                        }
+                        console.log(res.status);
+                    },
+                });
+
+})
