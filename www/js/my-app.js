@@ -1,4 +1,4 @@
-var base_url = 'http://localhost/CI/index.php/';
+var base_url = 'http://192.168.1.2/CI/index.php/';
 
 var myApp = new Framework7({
     pushState: false,
@@ -30,8 +30,6 @@ $$(document).on('deviceready', function() {
 });
 
 myApp.onPageInit('home', function(page) {
-    
-
     $.ajax({
         url: base_url + 'welcome/home',
         type: 'POST',
@@ -41,7 +39,6 @@ myApp.onPageInit('home', function(page) {
         },
         success: function(res) {
             if (res.status == 'success') {
-                console.log(res.adpost);
                 var html = '';
                 $("#product_listing").empty();
                 $.each(res.adpost, function(index, value) {
@@ -109,11 +106,9 @@ myApp.onPageInit('home', function(page) {
                         '</div>';
                 })
                 $("#product_listing").html(html);
-                            console.log(html);
                         } else {
                             console.log(res.api_msg);
                             alert('Error in ajax');
-
                         }
                         console.log(res.status);
                     }
@@ -138,16 +133,42 @@ myApp.onPageInit('home', function(page) {
                             var html = '';
                             $("#product_listing").empty();
                             $.each(res.user_details, function(index, value) {
+                                var MyDate = value.postdate;
+                                var MyDateYear;
+                                var MyDateMonth;
+                                var MyDateDate;
+                                var MyDateString;
+                                MyDateYear = value.postdate.slice(0, 4)
+                                MyDateMonth = value.postdate.slice(5, 7)
+                                MyDateDate = value.postdate.slice(8, 10)
+                                MyDateString = MyDateDate + '-' + MyDateMonth + '-' + MyDateYear;
+                                console.log(MyDateString)
                                 html += '<div class="card facebook-card">' +
                                     '<div class="card-header">' +
                                     // '<div class="facebook-avatar"><img src="css/hi/images/'+hatch1.jpg+'" width="34" height="34"></div>'+
-                                    '<div class="facebook-avatar"><img src="css/hi/images/hatch1.jpg" width="34" height="34"></div>' +
-                                    '<div class="facebook-name">' + value.adtitle + '</div>' +
-                                    '<div class="facebook-date">' + value.category + '</div>' +
+                                    '<div class="facebook-avatar">' +
+                                    value.category +
+                                    '</div>' +
+                                    '<div class="facebook-name">' +
+                                    '' +
+                                    '</div>' +
+                                    '<div class="facebook-date" style="text-align: right;">' +
+                                    MyDateString +
+                                    '</div>' +
+                                    '</div>' +
+                                    '<div class="card-header">' +
+                                    '<div class="facebook-avatar">' +
+                                    '' +
+                                    '</div>' +
+                                    '<div class="facebook-name">' +
+                                    value.adtitle +
+                                    '</div>' +
+                                    '<div class="facebook-date">' +
+                                    '' +
+                                    '</div>' +
                                     '</div>' +
                                     '<div class="card-content">' +
                                     '<div class="card-content-inner">' +
-                                    '<p>What a nice car!!</p>' +
                                     '<div class="swiper-container swiper-init">' +
                                     '<div class="swiper-wrapper">' +
                                     '<div class="swiper-slide">' +
@@ -159,11 +180,20 @@ myApp.onPageInit('home', function(page) {
                                     '<div class="swiper-slide">' +
                                     '<img src="css/hi/images/hatch3.jpg" max-height="100%" max-width="100%">' +
                                     '</div>' +
+                                    '<div class="swiper-slide">' +
+                                    '<img src="css/hi/images/hatch1.jpg" max-height="100%" max-width="100%">' +
+                                    '</div>' +
+                                    '<div class="swiper-slide">' +
+                                    '<img src="css/hi/images/hatch2.jpg" max-height="100%" max-width="100%">' +
                                     '</div>' +
                                     '</div>' +
                                     '</div>' +
                                     '</div>' +
-                                    '<div class="card-footer"><a href="#" class="link">Add to Wishlist</a><a href="product_details.html" id="'+value.adid+'">More details</a></div>' +
+                                    '</div>' +
+                                    '<div class="card-footer">' +
+                                    '<a href="#" class="link">₹' + value.rentperday + '/Day</a>' +
+                                    '<a href="#" class="link"  onclick="moredetails(' + value.adid + ')">More details</a>' +
+                                    '</div>' +
                                     '</div>';
                             })
                             $("#product_listing").html(html);
@@ -178,7 +208,7 @@ myApp.onPageInit('home', function(page) {
             });
             })
 
-    })
+})
 
 myApp.onPageInit('login', function(page) {
     var input = document.getElementById("password");
@@ -391,8 +421,6 @@ myApp.onPageInit('index', function(page) {
     })
 })
 
-
-
 $$(document).on('pageInit', function(e) {
     // Get page data from event data
     var page = e.detail.page;
@@ -452,19 +480,15 @@ myApp.onPageInit('account_details', function(page) {
             },
         });
 
-        function storelocal(dbinput)
-        {
+        function storelocal(dbinput){
             var userid = dbinput['userid']
             var newphno = $$("#disp_phoneno").val()
             var newcity = $$("#disp_city").val()
-            if(newphno == dbinput['phoneno'])
-            {
-                if(newcity == dbinput['city'])
-                {
+            if(newphno == dbinput['phoneno']){
+                if(newcity == dbinput['city']){
                     alert('No details changed. Details up to date')
                 }
-                else
-                {
+                else{
                     $.ajax({
                         url: base_url + 'welcome/updatedetails',
                         type: 'POST',
@@ -484,8 +508,7 @@ myApp.onPageInit('account_details', function(page) {
                     });
                 }   
             }
-            else
-            {
+            else{
                 $.ajax({
                     url: base_url + 'welcome/updatedetails',
                     type: 'POST',
@@ -527,18 +550,44 @@ myApp.onPageInit('sbc', function(page) {
                             console.log(res.user_details);
                             console.log(res.api_msg);
                             var html = '';
-                            $("#product_listing").empty();
+                            $("#product_listing_category").empty();
                             $.each(res.user_details, function(index, value) {
+                                var MyDate = value.postdate;
+                                var MyDateYear;
+                                var MyDateMonth;
+                                var MyDateDate;
+                                var MyDateString;
+                                MyDateYear = value.postdate.slice(0, 4)
+                                MyDateMonth = value.postdate.slice(5, 7)
+                                MyDateDate = value.postdate.slice(8, 10)
+                                MyDateString = MyDateDate + '-' + MyDateMonth + '-' + MyDateYear;
+                                console.log(MyDateString)
                                 html += '<div class="card facebook-card">' +
                                     '<div class="card-header">' +
                                     // '<div class="facebook-avatar"><img src="css/hi/images/'+hatch1.jpg+'" width="34" height="34"></div>'+
-                                    '<div class="facebook-avatar"><img src="css/hi/images/hatch1.jpg" width="34" height="34"></div>' +
-                                    '<div class="facebook-name">' + value.adtitle + '</div>' +
-                                    '<div class="facebook-date">' + value.category + '</div>' +
+                                    '<div class="facebook-avatar">' +
+                                    value.category +
+                                    '</div>' +
+                                    '<div class="facebook-name">' +
+                                    '' +
+                                    '</div>' +
+                                    '<div class="facebook-date" style="text-align: right;">' +
+                                    MyDateString +
+                                    '</div>' +
+                                    '</div>' +
+                                    '<div class="card-header">' +
+                                    '<div class="facebook-avatar">' +
+                                    '' +
+                                    '</div>' +
+                                    '<div class="facebook-name">' +
+                                    value.adtitle +
+                                    '</div>' +
+                                    '<div class="facebook-date">' +
+                                    '' +
+                                    '</div>' +
                                     '</div>' +
                                     '<div class="card-content">' +
                                     '<div class="card-content-inner">' +
-                                    '<p>What a nice car!!</p>' +
                                     '<div class="swiper-container swiper-init">' +
                                     '<div class="swiper-wrapper">' +
                                     '<div class="swiper-slide">' +
@@ -550,33 +599,34 @@ myApp.onPageInit('sbc', function(page) {
                                     '<div class="swiper-slide">' +
                                     '<img src="css/hi/images/hatch3.jpg" max-height="100%" max-width="100%">' +
                                     '</div>' +
+                                    '<div class="swiper-slide">' +
+                                    '<img src="css/hi/images/hatch1.jpg" max-height="100%" max-width="100%">' +
+                                    '</div>' +
+                                    '<div class="swiper-slide">' +
+                                    '<img src="css/hi/images/hatch2.jpg" max-height="100%" max-width="100%">' +
                                     '</div>' +
                                     '</div>' +
                                     '</div>' +
                                     '</div>' +
-                                    '<div class="card-footer"><a href="#" class="link">Add to Wishlist</a><a href="product_details.html" class="link">More details</a></div>' +
-                                    '</div>';
-                            
-                            
-                            
-                            
-                            
-                            
-                            
+                                    '</div>' +
+                                    '<div class="card-footer">' +
+                                    '<a href="#" class="link">₹' + value.rentperday + '/Day</a>' +
+                                    '<a href="#" class="link"  onclick="moredetails(' + value.adid + ')">More details</a>' +
+                                    '</div>' +
+                                    '</div>';                   
                                 })
-                            $("#product_listing").html(html);
+                            $("#product_listing_category").html(html);
                             console.log(html);
                         } else {
                             console.log(res.api_msg);
-                            alert('Error inn ajax');
-
+                            alert('Error in ajax');
                         }
                         console.log(res.status);
                     }
             });
             });
         
-    })
+})
 
 function open_dialog_for_image() {
     console.log("click event triggered");
