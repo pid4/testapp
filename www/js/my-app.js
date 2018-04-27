@@ -810,10 +810,17 @@ function uploadPhoto(imageURI) {
         alert(imageURI);
         var options = new FileUploadOptions();
         options.fileKey = "file";
-        options.fileName = imageURI.substr(imageURI + 1);
+        options.fileName = imageURI.substr(imageURI.lastIndexOf('/') + 1);
+    {
+        var elem = options.fileName.split("?");
+        var str = "";
+        for (var i = 0; i < elem.length - 1; i++)
+            str += elem[i] + "/";
+        return str;
+    }
         options.mimeType = "image/jpeg";
         // console.log(options.fileName);
-        alert(options.fileName);
+        alert(str);
         var params = new Object();
         params.value1 = "test";
         params.value2 = "param";
@@ -822,7 +829,7 @@ function uploadPhoto(imageURI) {
         var ft = new FileTransfer();
         ft.upload(imageURI,"http://doshiharsh.000webhostapp.com/CI/application/controllers/upload_image.php", function(result){
             alert("Image uploaded");
-            document.getElementById('imgurl').value=options.fileName;
+            document.getElementById('imgurl').value=str;
             // alert(JSON.stringify(result));
             console.log(JSON.stringify(result));
         }, function(error){
