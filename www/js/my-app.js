@@ -88,7 +88,6 @@ myApp.onPageInit('home', function(page) {
                      console.log(MyDateString)
                 html += '<div onclick="moredetails('+value.adid+')" class="card facebook-card">' +
                             '<div class="card-header">' +
-                                // '<div class="facebook-avatar"><img src="css/hi/images/'+hatch1.jpg+'" width="34" height="34"></div>'+
                                 '<div class="facebook-avatar">'+
                                    value.category +
                                 '</div>' +
@@ -115,19 +114,7 @@ myApp.onPageInit('home', function(page) {
                                     '<div class="swiper-container swiper-init">' +
                                         '<div class="swiper-wrapper">' +
                                             '<div class="swiper-slide">' +
-                                                '<img src="'+value.photo1+'" max-height="75%" max-width="100%">' +
-                                            '</div>' +
-                                            '<div class="swiper-slide">' +
-                                                '<img src="css/hi/images/hatch2.jpg" max-height="100%" max-width="100%">' +
-                                            '</div>' +
-                                            '<div class="swiper-slide">' +
-                                                '<img src="css/hi/images/hatch3.jpg" max-height="100%" max-width="100%">' +
-                                            '</div>' +
-                                            '<div class="swiper-slide">' +
-                                                '<img src="css/hi/images/hatch1.jpg" max-height="100%" max-width="100%">' +
-                                            '</div>' +
-                                            '<div class="swiper-slide">' +
-                                                '<img src="css/hi/images/hatch2.jpg" max-height="100%" max-width="100%">' +
+                                                '<img src="'+value.photo1+'" class="resize">' +
                                             '</div>' +
                                         '</div>' +
                                     '</div>' +
@@ -826,7 +813,9 @@ function uploadPhoto(imageURI) {
         options.fileName = imageURI.substr(imageURI.lastIndexOf('/') + 1);
         options.mimeType = "image/jpeg";
         // console.log(options.fileName);
-        alert(options.fileName);
+        // alert(options.fileName);
+        options.imagename = options.fileName +'.jpg';
+        alert(options.imagename)
         var params = new Object();
         params.value1 = "test";
         params.value2 = "param";
@@ -835,7 +824,7 @@ function uploadPhoto(imageURI) {
         var ft = new FileTransfer();
         ft.upload(imageURI,"http://doshiharsh.000webhostapp.com/CI/application/controllers/upload_image.php", function(result){
             alert("Image uploaded");
-            document.getElementById('imgurl').value=options.fileName;
+            document.getElementById('imgurl').value=options.imagename;
             // alert(JSON.stringify(result));
             console.log(JSON.stringify(result));
             
