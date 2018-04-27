@@ -1,4 +1,4 @@
-var base_url = 'http://192.168.1.2/CI/index.php/';
+var base_url = 'http://localhost/CI/index.php/';
 
 var myApp = new Framework7({
     pushState: false,
@@ -39,6 +39,7 @@ myApp.onPageInit('home', function(page) {
         },
         success: function(res) {
             if (res.status == 'success') {
+                console.log(res.adpost);
                 var html = '';
                 $("#product_listing").empty();
                 $.each(res.adpost, function(index, value) {
@@ -52,7 +53,7 @@ myApp.onPageInit('home', function(page) {
                     MyDateDate = value.postdate.slice(8,10)
                     MyDateString =  MyDateDate + '-' +  MyDateMonth + '-' + MyDateYear;
                      console.log(MyDateString)
-                html += '<div class="card facebook-card">' +
+                html += '<div onclick="moredetails('+value.adid+')" class="card facebook-card">' +
                             '<div class="card-header">' +
                                 // '<div class="facebook-avatar"><img src="css/hi/images/'+hatch1.jpg+'" width="34" height="34"></div>'+
                                 '<div class="facebook-avatar">'+
@@ -106,19 +107,21 @@ myApp.onPageInit('home', function(page) {
                         '</div>';
                 })
                 $("#product_listing").html(html);
+                            console.log(html);
                         } else {
                             console.log(res.api_msg);
                             alert('Error in ajax');
+
                         }
                         console.log(res.status);
                     }
             });
     
 
-    
-    $("#searchb").blur(function() {
-            var query = document.getElementById('searchb').value;
-            console.log("Searched for:" + query);
+    $("#searchb").keyup(function(event) {
+    if (event.keyCode === 13) {
+           var query = document.getElementById('searchb').value;
+            console.log("Searched for!:" + query);
             $.ajax({
                     url: base_url + 'welcome/search',
                     type: 'POST',
@@ -128,11 +131,12 @@ myApp.onPageInit('home', function(page) {
                     },
                     success: function(res) {
                         if (res.status == 'success') {
-                            console.log(res.user_details);
+                            console.log(res.api_msg);
+                            console.log(res.adpost);
                             console.log("Successful in Searching in ajax for " + query);
                             var html = '';
                             $("#product_listing").empty();
-                            $.each(res.user_details, function(index, value) {
+                            $.each(res.adpost, function (index, value) {
                                 var MyDate = value.postdate;
                                 var MyDateYear;
                                 var MyDateMonth;
@@ -200,14 +204,15 @@ myApp.onPageInit('home', function(page) {
                             console.log(html);
                         } else {
                             console.log(res.api_msg);
-                            alert('Error inn ajax');
+                            alert('Error in ajax');
 
                         }
-                        console.log(res.status);
+                        console.log("dfsa"+res.status);
                     }
             });
-            })
+            }
 
+});
 })
 
 myApp.onPageInit('login', function(page) {
@@ -270,7 +275,7 @@ myApp.onPageInit('login', function(page) {
     })
     $("#signup_page").click(function() {
         // app.dialog.alert('Hello');
-        goto_page("adpost.html");
+        goto_page("signup.html");
     })
     // $$('.open-alert').on('click', function () {
     //     app.dialog.alert('Hello');
@@ -416,9 +421,6 @@ myApp.onPageInit('adpost', function(page) {
 })
 
 myApp.onPageInit('index', function(page) {
-    $("#homenvabar").click(function() {
-        goto_page('home.html');
-    })
 })
 
 $$(document).on('pageInit', function(e) {
@@ -480,15 +482,19 @@ myApp.onPageInit('account_details', function(page) {
             },
         });
 
-        function storelocal(dbinput){
+        function storelocal(dbinput)
+        {
             var userid = dbinput['userid']
             var newphno = $$("#disp_phoneno").val()
             var newcity = $$("#disp_city").val()
-            if(newphno == dbinput['phoneno']){
-                if(newcity == dbinput['city']){
+            if(newphno == dbinput['phoneno'])
+            {
+                if(newcity == dbinput['city'])
+                {
                     alert('No details changed. Details up to date')
                 }
-                else{
+                else
+                {
                     $.ajax({
                         url: base_url + 'welcome/updatedetails',
                         type: 'POST',
@@ -499,7 +505,7 @@ myApp.onPageInit('account_details', function(page) {
                         },
                         success: function(res) {
                             if (res.status == 'success') {
-                                alert('Details Updated');
+                                alert('Details Updated. Please login again to see the changes.');
                             } else {
                                 Alert(res.api_msg);
                             }
@@ -508,7 +514,8 @@ myApp.onPageInit('account_details', function(page) {
                     });
                 }   
             }
-            else{
+            else
+            {
                 $.ajax({
                     url: base_url + 'welcome/updatedetails',
                     type: 'POST',
@@ -529,103 +536,203 @@ myApp.onPageInit('account_details', function(page) {
             }
         }
     })
+    $("#postedads_btn").click(function (){
+        goto_page('postedads.html')
+    })
+
 })
 
-myApp.onPageInit('sbc', function(page) {
-    $("a").on("click", function (e) {
+myApp.onPageInit('postedads', function(page){
+    $.ajax({
+        url: base_url + 'welcome/user_posts',
+        type: 'POST',
+        crossDomain: true,
+        data: {
 
-    // Id of the element that was clicked
-    var elementId = $(this).attr("id");
-    alert(elementId);
-            $.ajax({
-                    url: base_url + 'welcome/sbc',
-                    type: 'POST',
-                    crossDomain: true,
-                    data: {
-                        category:elementId,
-                    },
-                    success: function(res) {
-                        if (res.status == 'success') {
-                            console.log("success in sbc");
-                            console.log(res.user_details);
-                            console.log(res.api_msg);
-                            var html = '';
-                            $("#product_listing_category").empty();
-                            $.each(res.user_details, function(index, value) {
-                                var MyDate = value.postdate;
-                                var MyDateYear;
-                                var MyDateMonth;
-                                var MyDateDate;
-                                var MyDateString;
-                                MyDateYear = value.postdate.slice(0, 4)
-                                MyDateMonth = value.postdate.slice(5, 7)
-                                MyDateDate = value.postdate.slice(8, 10)
-                                MyDateString = MyDateDate + '-' + MyDateMonth + '-' + MyDateYear;
-                                console.log(MyDateString)
-                                html += '<div class="card facebook-card">' +
-                                    '<div class="card-header">' +
-                                    // '<div class="facebook-avatar"><img src="css/hi/images/'+hatch1.jpg+'" width="34" height="34"></div>'+
-                                    '<div class="facebook-avatar">' +
-                                    value.category +
-                                    '</div>' +
-                                    '<div class="facebook-name">' +
-                                    '' +
-                                    '</div>' +
-                                    '<div class="facebook-date" style="text-align: right;">' +
-                                    MyDateString +
-                                    '</div>' +
-                                    '</div>' +
-                                    '<div class="card-header">' +
-                                    '<div class="facebook-avatar">' +
-                                    '' +
-                                    '</div>' +
-                                    '<div class="facebook-name">' +
-                                    value.adtitle +
-                                    '</div>' +
-                                    '<div class="facebook-date">' +
-                                    '' +
-                                    '</div>' +
-                                    '</div>' +
-                                    '<div class="card-content">' +
-                                    '<div class="card-content-inner">' +
-                                    '<div class="swiper-container swiper-init">' +
-                                    '<div class="swiper-wrapper">' +
-                                    '<div class="swiper-slide">' +
-                                    '<img src="css/hi/images/hatch1.jpg" max-height="100%" max-width="100%">' +
-                                    '</div>' +
-                                    '<div class="swiper-slide">' +
-                                    '<img src="css/hi/images/hatch2.jpg" max-height="100%" max-width="100%">' +
-                                    '</div>' +
-                                    '<div class="swiper-slide">' +
-                                    '<img src="css/hi/images/hatch3.jpg" max-height="100%" max-width="100%">' +
-                                    '</div>' +
-                                    '<div class="swiper-slide">' +
-                                    '<img src="css/hi/images/hatch1.jpg" max-height="100%" max-width="100%">' +
-                                    '</div>' +
-                                    '<div class="swiper-slide">' +
-                                    '<img src="css/hi/images/hatch2.jpg" max-height="100%" max-width="100%">' +
-                                    '</div>' +
-                                    '</div>' +
-                                    '</div>' +
-                                    '</div>' +
-                                    '</div>' +
-                                    '<div class="card-footer">' +
-                                    '<a href="#" class="link">₹' + value.rentperday + '/Day</a>' +
-                                    '<a href="#" class="link"  onclick="moredetails(' + value.adid + ')">More details</a>' +
-                                    '</div>' +
-                                    '</div>';                   
-                                })
-                            $("#product_listing_category").html(html);
-                            console.log(html);
-                        } else {
-                            console.log(res.api_msg);
-                            alert('Error in ajax');
-                        }
-                        console.log(res.status);
-                    }
-            });
-            });
-        
+        },
+        success: function (res) {
+            if (res.status == 'success') {
+                console.log("success in user posts");
+                console.log(res.api_msg);
+                var html = '';
+                $("#product_listing").empty();
+                $.each(res.adpost, function (index, value) {
+                    var MyDate = value.postdate;
+                    var MyDateYear;
+                    var MyDateMonth;
+                    var MyDateDate;
+                    var MyDateString;
+                    MyDateYear = value.postdate.slice(0, 4)
+                    MyDateMonth = value.postdate.slice(5, 7)
+                    MyDateDate = value.postdate.slice(8, 10)
+                    MyDateString = MyDateDate + '-' + MyDateMonth + '-' + MyDateYear;
+                    console.log(MyDateString)
+                    html += '<div class="card facebook-card">' +
+                        '<div class="card-header">' +
+                        // '<div class="facebook-avatar"><img src="css/hi/images/'+hatch1.jpg+'" width="34" height="34"></div>'+
+                        '<div class="facebook-avatar">' +
+                        value.category +
+                        '</div>' +
+                        '<div class="facebook-name">' +
+                        '' +
+                        '</div>' +
+                        '<div class="facebook-date" style="text-align: right;">' +
+                        MyDateString +
+                        '</div>' +
+                        '</div>' +
+                        '<div class="card-header">' +
+                        '<div class="facebook-avatar">' +
+                        '' +
+                        '</div>' +
+                        '<div class="facebook-name">' +
+                        value.adtitle +
+                        '</div>' +
+                        '<div class="facebook-date">' +
+                        '' +
+                        '</div>' +
+                        '</div>' +
+                        '<div class="card-content">' +
+                        '<div class="card-content-inner">' +
+                        '<div class="swiper-container swiper-init">' +
+                        '<div class="swiper-wrapper">' +
+                        '<div class="swiper-slide">' +
+                        '<img src="css/hi/images/hatch1.jpg" max-height="100%" max-width="100%">' +
+                        '</div>' +
+                        '<div class="swiper-slide">' +
+                        '<img src="css/hi/images/hatch2.jpg" max-height="100%" max-width="100%">' +
+                        '</div>' +
+                        '<div class="swiper-slide">' +
+                        '<img src="css/hi/images/hatch3.jpg" max-height="100%" max-width="100%">' +
+                        '</div>' +
+                        '<div class="swiper-slide">' +
+                        '<img src="css/hi/images/hatch1.jpg" max-height="100%" max-width="100%">' +
+                        '</div>' +
+                        '<div class="swiper-slide">' +
+                        '<img src="css/hi/images/hatch2.jpg" max-height="100%" max-width="100%">' +
+                        '</div>' +
+                        '</div>' +
+                        '</div>' +
+                        '</div>' +
+                        '</div>' +
+                        '<div class="card-footer">' +
+                        '<a href="#" class="link">₹' + value.rentperday + '/Day</a>' +
+                        '<a href="#" class="link"  onclick="moredetails(' + value.adid + ')">More details</a>' +
+                        '</div>' +
+                        '</div>';
+                })
+                $("#product_listing").html(html);
+                console.log(html);
+            } else if (res.status == 'failed') {
+                console.log(res.api_msg);
+                alert('You have posted no Ads yet!');
+                goto_page('account_details.html')
+            }
+            console.log(res.status);
+        }
+    });
+})
+    function sbc(elementId)
+    {
+                alert(elementId);
+                $.ajax({
+                        url: base_url + 'welcome/sbc',
+                        type: 'POST',
+                        crossDomain: true,
+                        data: {
+                            category:elementId,
+                        },
+                    });
+                goto_page('sbcpage.html');
+     }
+myApp.onPageInit('sbcpage', function(page) {
+    $.ajax({
+        url: base_url + 'welcome/sbcpage',
+        type: 'POST',
+        crossDomain: true,
+        data: {
+        },
+        success: function(res) {
+                                    if (res.status == 'success') {
+                                        console.log("success in sbc");
+                                        console.log(res.user_details);
+                                        console.log(res.api_msg);
+                                        var html = '';
+                                        $("#product_listing").empty();
+                                        $.each(res.adpost, function (index, value) {
+                                            var MyDate = value.postdate;
+                                            var MyDateYear;
+                                            var MyDateMonth;
+                                            var MyDateDate;
+                                            var MyDateString;
+                                            MyDateYear = value.postdate.slice(0, 4)
+                                            MyDateMonth = value.postdate.slice(5, 7)
+                                            MyDateDate = value.postdate.slice(8, 10)
+                                            MyDateString = MyDateDate + '-' + MyDateMonth + '-' + MyDateYear;
+                                            console.log(MyDateString)
+                                            html += '<div class="card facebook-card">' +
+                                                '<div class="card-header">' +
+                                                // '<div class="facebook-avatar"><img src="css/hi/images/'+hatch1.jpg+'" width="34" height="34"></div>'+
+                                                '<div class="facebook-avatar">' +
+                                                value.category +
+                                                '</div>' +
+                                                '<div class="facebook-name">' +
+                                                '' +
+                                                '</div>' +
+                                                '<div class="facebook-date" style="text-align: right;">' +
+                                                MyDateString +
+                                                '</div>' +
+                                                '</div>' +
+                                                '<div class="card-header">' +
+                                                '<div class="facebook-avatar">' +
+                                                '' +
+                                                '</div>' +
+                                                '<div class="facebook-name">' +
+                                                value.adtitle +
+                                                '</div>' +
+                                                '<div class="facebook-date">' +
+                                                '' +
+                                                '</div>' +
+                                                '</div>' +
+                                                '<div class="card-content">' +
+                                                '<div class="card-content-inner">' +
+                                                '<div class="swiper-container swiper-init">' +
+                                                '<div class="swiper-wrapper">' +
+                                                '<div class="swiper-slide">' +
+                                                '<img src="css/hi/images/hatch1.jpg" max-height="100%" max-width="100%">' +
+                                                '</div>' +
+                                                '<div class="swiper-slide">' +
+                                                '<img src="css/hi/images/hatch2.jpg" max-height="100%" max-width="100%">' +
+                                                '</div>' +
+                                                '<div class="swiper-slide">' +
+                                                '<img src="css/hi/images/hatch3.jpg" max-height="100%" max-width="100%">' +
+                                                '</div>' +
+                                                '<div class="swiper-slide">' +
+                                                '<img src="css/hi/images/hatch1.jpg" max-height="100%" max-width="100%">' +
+                                                '</div>' +
+                                                '<div class="swiper-slide">' +
+                                                '<img src="css/hi/images/hatch2.jpg" max-height="100%" max-width="100%">' +
+                                                '</div>' +
+                                                '</div>' +
+                                                '</div>' +
+                                                '</div>' +
+                                                '</div>' +
+                                                '<div class="card-footer">' +
+                                                '<a href="#" class="link">₹' + value.rentperday + '/Day</a>' +
+                                                '<a href="#" class="link"  onclick="moredetails(' + value.adid + ')">More details</a>' +
+                                                '</div>' +
+                                                '</div>';
+                                        })
+                                        $("#product_listing").html(html);
+                                        console.log(html);
+                                    } else if (res.status == 'failed') {
+                                        console.log(res.api_msg);
+                                        alert('No Ads for this category. Please check back later!');
+
+                                    }
+                                    console.log(res.status);
+                                }
+
+                            });
 })
 
 function open_dialog_for_image() {
@@ -679,7 +786,7 @@ function image_camera() {
 function imagead_onSuccess(fileURL) {
     console.log("on selection success");
     myApp.showPreloader('uploading image');
-    var uri = encodeURI("http://kreaserv.com/assets/uploads/");
+    var uri = encodeURI("http://notchitup.in/rentingappp/CI/assets/uploads/");
     var options = new FileUploadOptions();
     options.fileKey = "file";
     options.fileName = fileURL.substr(fileURL.lastIndexOf('/') + 1);
@@ -736,6 +843,54 @@ function moredetails(id){
     goto_page('product_details.html');
 }
 
+function logout(){  
+    alert("Logout is clicked");
+    $.ajax({
+            url: base_url + 'welcome/logout',
+            type: 'POST',
+            data: {
+            },
+        });
+
+    document.getElementById("noti").innerHTML="";
+    mainView.hideNavbar();
+}
+
+function rentit(){
+    var no_days=document.getElementById('no_days').value;
+    var adid=document.getElementById('adid').value;
+    var userid=document.getElementById('userid').value;
+    var m=document.getElementById('newmax').innerHTML;
+    document.getElementById("noti").innerHTML="You have successfully bought this product for rent  "/*+adid+" for "+no_days*/;  
+    console.log(no_days);
+    console.log(adid);
+    console.log("max" +m);
+    if(no_days>m){
+    alert('Max Days the item is available for rent is '+m);
+    }
+    else{
+    alert("Rented "+adid+" for "+no_days);
+    $.ajax({
+            url: base_url + 'welcome/rentit',
+            type: 'POST',
+            data: {
+                no_days:no_days,
+                adid:adid,
+                userid:userid,
+            },
+            success: function(res) {
+            if (res.status == 'success') {
+                console.log(res.api_msg);
+                console.log(res.rent_details);
+
+                console.log("Rented Successfully");
+            } else {
+                console.log(res.api_msg);
+            }
+        },
+        });
+    }
+}
 myApp.onPageInit('product_details', function(page) {
     $.ajax({
         url: base_url + 'welcome/product_details',
@@ -755,27 +910,33 @@ myApp.onPageInit('product_details', function(page) {
                             var MyDateMonth;
                             var MyDateDate;
                             var MyDateString;
+                            var adid=res.ad_details['adid'];
+                            document.getElementById('adid').value=adid;
                             MyDateYear = MyDate.slice(0,4)
                             MyDateMonth = MyDate.slice(5,7)
                             MyDateDate = MyDate.slice(8,10)
                             MyDateString =  MyDateDate + '-' +  MyDateMonth + '-' + MyDateYear;
                             date.value = MyDateString;
-                            postdate.innerHTML = "Ad Posted on: "+MyDateString;
+                            postdate.innerHTML = "<span style='color: black;'>Ad Posted on: </span>"+MyDateString;
                             var category = document.getElementById('category');
-                            category.innerHTML = "Category: "+res.ad_details["category"];
+                            category.innerHTML = "<span style='color: black;'>Category: </span>"+res.ad_details["category"];
                             var category = document.getElementById('posted by');
-                            category.innerHTML = "Posted By: "+res.user_name["name"];
+                            category.innerHTML = "<span style='color: black;'>Posted By: </span>"+res.user_name["name"];
                             console.log(res.user_name)
                             var category = document.getElementById('city');
-                            category.innerHTML = "City: "+res.ad_details["city"];
+                            category.innerHTML = "<span style='color: black;'>City: </span>"+res.ad_details["city"];
                             var category = document.getElementById('description');
                             category.innerHTML = res.ad_details["description"];
-                            var category = document.getElementById('maxdays');
-                            category.innerHTML = "Max days: "+res.ad_details["maxdays"];
+                            var maxidays = document.getElementById('maxdays');
+                            maxidays.innerHTML = "<span style='color: black;'>Max days: </span><span id='newmax'>"+res.ad_details['maxdays']+"</span>";
+                            console.log(maxidays);
+                            var category = document.getElementById('userid');
+                            category.innerHTML = res.ad_details["userid"];
                             var category = document.getElementById('depositamt');
-                            category.innerHTML = "Deposit amount: ₹"+res.ad_details["depositamt"];
+                            category.innerHTML = "<span style='color: black;'>Deposit amount: ₹</span>"+res.ad_details["depositamt"];
                             var category = document.getElementById('rentperday');
-                            category.innerHTML = "Rent per day: ₹" +res.ad_details["rentperday"]+"/Day";
+                            category.innerHTML = "<span style='color: black;'>Rent per day: ₹</span>" +res.ad_details["rentperday"]+"/Day";
+
                         } else {
                             alert(res.api_msg);
                         }
@@ -783,4 +944,19 @@ myApp.onPageInit('product_details', function(page) {
                     },
                 });
 
+})
+
+
+myApp.onPageInit('logout', function (page) {
+    $.ajax({
+        url: base_url + 'welcome/logout',
+        type: 'POST',
+        crossDomain: true,
+        data: {
+        },
+    });
+    console.log("hell000");
+    goto_page('login.html');
+    mainView.hideNavbar();
+    
 })

@@ -36,10 +36,9 @@ class Welcome extends CI_Controller {
 		$this->session->set_userdata('email',$email);
 		$user_exist = $this->db->get("user");
 		$userid=$user_exist->row('userid');
+		$ucity=$user_exist->row('city');
 		$this->session->set_userdata('userid',$userid);
-
-
-
+		$this->session->set_userdata('city',$ucity);
 
 		if($user_exist->num_rows() > 0) {
 			$response_data['status'] = 'success';
@@ -127,9 +126,8 @@ class Welcome extends CI_Controller {
 		$response_data['user_details'] = '';
 		$response_data['status'] = '';
 		$response_data['api_msg'] = '';
-		$q=$query;
-		$s="select * from adpost where adtitle like '%$q%'";
-		// $s="select * from adpost";
+			$ucity= $this->session->userdata('city');
+		$s="select * from adpost where adtitle like '%$q%' and city ='$ucity'";
 		
 		$user_exist = $this->db->query($s);
 		$response_data['user_details'] = $user_exist->result();
@@ -157,16 +155,14 @@ class Welcome extends CI_Controller {
 		$response_data['adpost'] = '';
 		$response_data['status'] = 'success';
 		$response_data['api_msg'] = '';
-		$s="select * from adpost";
+		$ucity= $this->session->userdata('city');
+		$s="select * from adpost where city ='$ucity'";
 		$ad_exist = $this->db->query($s);
 		$response_data['adpost'] = $ad_exist->result();
 		echo json_encode($response_data);
 	
 	
 	}
-	
-	
-
 
 	public function adpost(){
 
@@ -245,13 +241,15 @@ class Welcome extends CI_Controller {
             }
             echo json_encode($response_data);
 	}
+
 	public function sbc(){
 
 		$c = $this->input->post('category');
 		$response_data['user_details'] = '';
 		$response_data['status'] = '';
 		$response_data['api_msg'] = '';
-		$s="select * from adpost where category like '%$c%'";
+		$ucity= $this->session->userdata('city');
+		$s="select * from adpost where category like '%$c%' and city ='$ucity'";
 		// $s="select * from adpost";
 		
 		$user_exist = $this->db->query($s);
@@ -266,4 +264,37 @@ class Welcome extends CI_Controller {
 		}
 			echo json_encode($response_data);
 	}
+
+	public function moredetails(){
+		$id = $this->input->post('id');
+		$this->session->set_userdata('adid',$id);
+	}
+
+	public function product_details(){
+		$response_data['ad_details'] = '';
+		$response_data['status'] = '';
+		$response_data['api_msg'] = '';
+		$response_data['status'] = 'success';
+		$response_data['api_msg'] = 'success';
+		$adid= $this->session->userdata('adid');
+		$this->db->where('adid', $adid);
+		$user = $this->db->get("adpost");
+		$uid = $user->row('userid');
+		$s="select name from user where userid='$uid'";
+		$user_exist = $this->db->query($s);
+		$response_data['user_name'] = $user_exist->row();
+		$response_data['ad_details'] = $user->row();
+		echo json_encode($response_data);
+		$this->session->unset_userdata('adid');
+	}
+
+	public function user_orders(){
+		$id = $this->input->post('id');
+
+
+
+	}
+
+
+
 }

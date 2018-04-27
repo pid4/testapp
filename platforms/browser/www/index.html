@@ -92,7 +92,7 @@
                                     <div class="item-inner">
                                         <div class="item-title item-label">
                                                 <i class="fas fa-sign-out-alt"></i>
-                                            <a href="login.html" class="close-panel">Logout</a></div>
+                                            <a href="login.html" onclick="logout()" class="close-panel">Logout</a></div>
                                     </div>
                                 </div>
                             </li>
@@ -110,6 +110,10 @@
             <div class="block">
                 <div class="content-block">
                     <p>No new notifications</p>
+                </div>
+
+                <div class="content-block">
+                    <p id="noti"></p>
                 </div>
             </div>
         </div>
