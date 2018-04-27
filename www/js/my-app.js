@@ -811,16 +811,11 @@ function uploadPhoto(imageURI) {
         var options = new FileUploadOptions();
         options.fileKey = "file";
         options.fileName = imageURI.substr(imageURI.lastIndexOf('/') + 1);
-    {
-        var elem = options.fileName.split("?");
-        var str = "";
-        for (var i = 0; i < elem.length - 1; i++)
-            str += elem[i] + "/";
-        return str;
-    }
+    
+        var elem = options.fileName.split("?",1);
         options.mimeType = "image/jpeg";
         // console.log(options.fileName);
-        alert(str);
+        alert(elem);
         var params = new Object();
         params.value1 = "test";
         params.value2 = "param";
@@ -829,7 +824,7 @@ function uploadPhoto(imageURI) {
         var ft = new FileTransfer();
         ft.upload(imageURI,"http://doshiharsh.000webhostapp.com/CI/application/controllers/upload_image.php", function(result){
             alert("Image uploaded");
-            document.getElementById('imgurl').value=str;
+            document.getElementById('imgurl').value=elem;
             // alert(JSON.stringify(result));
             console.log(JSON.stringify(result));
         }, function(error){
