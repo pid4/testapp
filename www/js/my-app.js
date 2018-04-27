@@ -115,7 +115,7 @@ myApp.onPageInit('home', function(page) {
                                     '<div class="swiper-container swiper-init">' +
                                         '<div class="swiper-wrapper">' +
                                             '<div class="swiper-slide">' +
-                                                '<img src="http://doshiharsh.000webhostapp.com/CI/assets/uploads/a.jpg" max-height="100%" max-width="100%">' +
+                                                '<img src="'+value.photo1+'" max-height="75%" max-width="100%">' +
                                             '</div>' +
                                             '<div class="swiper-slide">' +
                                                 '<img src="css/hi/images/hatch2.jpg" max-height="100%" max-width="100%">' +
@@ -431,6 +431,7 @@ myApp.onPageInit('adpost', function(page) {
                 data: {
                     adtitle: $("#adtitle").val(),
                     phoneno: $("#phoneno").val(),
+                    photo1: $("#imgurl").val(),
                     //'file': file,
                     //'module' : 'ajax_data_form',
                     category: $("#category").val(),
@@ -798,10 +799,9 @@ function image_gallery() {
         quality: 50,
         destinationType: Camera.DestinationType.FILE_URI,
         sourceType: Camera.PictureSourceType.SAVEDPHOTOALBUM,
-        targetWidth: 720,
-        targetHeight: 640,
+        targetWidth: 1280,
+        targetHeight: 720,
         correctOrientation: true,
-        allowEdit: true,
     });
 }
 
@@ -810,13 +810,12 @@ function image_camera() {
     navigator.camera.getPicture(uploadPhoto, function(message) {
         alert('get picture failed');
     },{
-        quality: 50,
+        // quality: 50,
         destinationType: Camera.DestinationType.FILE_URI,
         sourceType: Camera.PictureSourceType.CAMERA,
-        targetWidth: 720,
-        targetHeight: 640,
+        targetWidth: 1280,
+        targetHeight: 720,
         correctOrientation: true,
-        allowEdit: true,
     });
 }
 
@@ -826,7 +825,7 @@ function uploadPhoto(imageURI) {
         options.fileKey = "file";
         options.fileName = imageURI.substr(imageURI.lastIndexOf('/') + 1);
         options.mimeType = "image/jpeg";
-        console.log(options.fileName);
+        // console.log(options.fileName);
         alert(options.fileName);
         var params = new Object();
         params.value1 = "test";
@@ -834,14 +833,15 @@ function uploadPhoto(imageURI) {
         options.params = params;
         options.chunkedMode = false;
         var ft = new FileTransfer();
-        ft.upload(imageURI,base_url + 'upload_image' , function(result){
-            alert("upload");
-            alert(JSON.stringify(result));
+        ft.upload(imageURI,"http://doshiharsh.000webhostapp.com/CI/application/controllers/upload_image.php", function(result){
+            alert("Image uploaded");
+            document.getElementById('imgurl').value=options.fileName;
+            // alert(JSON.stringify(result));
             console.log(JSON.stringify(result));
             
         }, function(error){
-            alert("not upload");
-            alert(JSON.stringify(error));
+            alert("Image not uploaded");
+            // alert(JSON.stringify(error));
             console.log(JSON.stringify(error));
             
         }, options);
@@ -959,7 +959,8 @@ myApp.onPageInit('product_details', function(page) {
                             category.innerHTML = "<span style='color: black;'>Deposit amount: ₹</span>"+res.ad_details["depositamt"];
                             var category = document.getElementById('rentperday');
                             category.innerHTML = "<span style='color: black;'>Rent per day: ₹</span>" +res.ad_details["rentperday"]+"/Day";
-
+                            var category = document.getElementById('photo1');
+                            category.innerHTML = res.ad_details["photo1"];
                         } else {
                             alert(res.api_msg);
                         }
