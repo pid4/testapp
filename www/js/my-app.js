@@ -1,4 +1,37 @@
-var base_url = 'http://localhost/CI/index.php/';
+//var base_url = 'http://192.168.1.26/CI/index.php/';
+var base_url = 'https://doshiharsh.000webhostapp.com/CI/index.php/';
+
+var app = {
+    // Application Constructor
+    initialize: function() {
+        this.bindEvents();
+    },
+    // Bind Event Listeners
+    //
+    // Bind any events that are required on startup. Common events are:
+    // 'load', 'deviceready', 'offline', and 'online'.
+    bindEvents: function() {
+        document.addEventListener('deviceready', this.onDeviceReady, false);
+    },
+    // deviceready Event Handler
+    //
+    // The scope of 'this' is the event. In order to call the 'receivedEvent'
+    // function, we must explicitly call 'app.receivedEvent(...);'
+    onDeviceReady: function() {
+        app.receivedEvent('deviceready');
+    },
+    // Update DOM on a Received Event
+    receivedEvent: function(id) {
+        var parentElement = document.getElementById(id);
+        var listeningElement = parentElement.querySelector('.listening');
+        var receivedElement = parentElement.querySelector('.received');
+
+        listeningElement.setAttribute('style', 'display:none;');
+        receivedElement.setAttribute('style', 'display:block;');
+
+        console.log('Received Event: ' + id);
+    }
+};
 
 var myApp = new Framework7({
     pushState: false,
@@ -82,7 +115,7 @@ myApp.onPageInit('home', function(page) {
                                     '<div class="swiper-container swiper-init">' +
                                         '<div class="swiper-wrapper">' +
                                             '<div class="swiper-slide">' +
-                                                '<img src="css/hi/images/hatch1.jpg" max-height="100%" max-width="100%">' +
+                                                '<img src="http://doshiharsh.000webhostapp.com/CI/assets/uploads/a.jpg" max-height="100%" max-width="100%">' +
                                             '</div>' +
                                             '<div class="swiper-slide">' +
                                                 '<img src="css/hi/images/hatch2.jpg" max-height="100%" max-width="100%">' +
@@ -302,7 +335,7 @@ myApp.onPageInit('signup', function(page) {
             return false;
         }
         var email = new RegExp(/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
-        $.emailid = $('#email').val();
+        $.emailid = $('#semail').val();
         if ($.emailid.match(email)) {} else {
             alert("Please enter the correct email");
             return false;
@@ -312,8 +345,8 @@ myApp.onPageInit('signup', function(page) {
             alert("Enter 10 digit mobileno");
             return false;
         }
-        $.p1 = $('#password').val();
-        if ($.p1.length <= 8) {
+        $.p1 = $('#spassword').val();
+        if ($.p1.length<= 8) {
             alert("Password length short enter minimum 8 digit password");
             return false;
         }
@@ -328,9 +361,9 @@ myApp.onPageInit('signup', function(page) {
                 type: 'POST',
                 data: {
                     name: $("#name").val(),
-                    email: $("#email").val(),
+                    email: $("#semail").val(),
                     phoneno: $("#phoneno").val(),
-                    password: $("#password").val(),
+                    password: $("#spassword").val(),
                     gender: $("#gender").val(),
                     dob: $("#dob").val(),
                     city: $("#city").val(),
@@ -759,7 +792,9 @@ function open_dialog_for_image() {
 
 function image_gallery() {
     console.log("gallery selection");
-    navigator.camera.getPicture(imagead_onSuccess, imagead_onFail, {
+    navigator.camera.getPicture(uploadPhoto, function(message) {
+        alert('get picture failed');
+    },{
         quality: 50,
         destinationType: Camera.DestinationType.FILE_URI,
         sourceType: Camera.PictureSourceType.SAVEDPHOTOALBUM,
@@ -772,7 +807,9 @@ function image_gallery() {
 
 function image_camera() {
     console.log("camera triggered");
-    navigator.camera.getPicture(imagead_onSuccess, imagead_onFail, {
+    navigator.camera.getPicture(uploadPhoto, function(message) {
+        alert('get picture failed');
+    },{
         quality: 50,
         destinationType: Camera.DestinationType.FILE_URI,
         sourceType: Camera.PictureSourceType.CAMERA,
@@ -783,49 +820,35 @@ function image_camera() {
     });
 }
 
-function imagead_onSuccess(fileURL) {
-    console.log("on selection success");
-    myApp.showPreloader('uploading image');
-    var uri = encodeURI("http://notchitup.in/rentingappp/CI/assets/uploads/");
-    var options = new FileUploadOptions();
-    options.fileKey = "file";
-    options.fileName = fileURL.substr(fileURL.lastIndexOf('/') + 1);
-
-    options.mimeType = "image/jpeg";
-    var headers = {
-        'headerParam': 'headerValue'
-    };
-    options.headers = headers;
-    new FileTransfer().upload(fileURL, uri, imagead_onSuccess_file, imagead_onError_file, options);
-}
-
-function imagead_onSuccess_file(res) {
-    console.log(res);
-    console.log('res: ' + j2s(res));
-    myApp.hidePreloader();
-    if (res.responseCode == 200) {
-        uploaded_image = res.response.replace(/\"/g, "");
-        image_from_device = uploaded_image;
-        console.log('uploaded_image: ' + uploaded_image);
-        // $('#shopper_register-profile_image').val(uploaded_image);
-        myApp.alert("Image Uploaded Successfully");
-    } else {
-        myApp.hidePreloader();
-        myApp.alert('Some error occurred on uploading');
+function uploadPhoto(imageURI) {
+        alert(imageURI);
+        var options = new FileUploadOptions();
+        options.fileKey = "file";
+        options.fileName = imageURI.substr(imageURI.lastIndexOf('/') + 1);
+        options.mimeType = "image/jpeg";
+        console.log(options.fileName);
+        alert(options.fileName);
+        var params = new Object();
+        params.value1 = "test";
+        params.value2 = "param";
+        options.params = params;
+        options.chunkedMode = false;
+        var ft = new FileTransfer();
+        ft.upload(imageURI,base_url + 'upload_image' , function(result){
+            alert("upload");
+            alert(JSON.stringify(result));
+            console.log(JSON.stringify(result));
+            
+        }, function(error){
+            alert("not upload");
+            alert(JSON.stringify(error));
+            console.log(JSON.stringify(error));
+            
+        }, options);
     }
-}
 
-function imagead_onFail(message) {
-    console.log('Failed because: ' + message);
-}
 
-function imagead_onError_file(error) {
-    myApp.hidePreloader();
-    console.log("An error has occurred: Code = " + error.code);
-    console.log("upload error source " + error.source);
-    console.log("upload error target " + error.target);
-    myApp.alert("Some Error Occured While image upload please try again");
-}
+
 
 function j2s(json) {
     return JSON.stringify(json);
