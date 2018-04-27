@@ -811,7 +811,7 @@ function uploadPhoto(imageURI) {
         var options = new FileUploadOptions();
         options.fileKey = "file";
         var element = imageURI.substr(imageURI.lastIndexOf('/') + 1);
-        options.fileName = elem.fileName.split("?", 1);
+        options.fileName = element.split("?", 1);
         options.mimeType = "image/jpeg";
         // console.log(options.fileName);
         alert(options.fileName);
