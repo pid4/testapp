@@ -813,9 +813,7 @@ function uploadPhoto(imageURI) {
         options.fileName = imageURI.substr(imageURI.lastIndexOf('/') + 1);
         options.mimeType = "image/jpeg";
         // console.log(options.fileName);
-        // alert(options.fileName);
-        options.imagename = options.fileName +'.jpg';
-        alert(options.imagename)
+        alert(options.fileName);
         var params = new Object();
         params.value1 = "test";
         params.value2 = "param";
@@ -824,19 +822,15 @@ function uploadPhoto(imageURI) {
         var ft = new FileTransfer();
         ft.upload(imageURI,"http://doshiharsh.000webhostapp.com/CI/application/controllers/upload_image.php", function(result){
             alert("Image uploaded");
-            document.getElementById('imgurl').value=options.imagename;
+            document.getElementById('imgurl').value=options.fileName;
             // alert(JSON.stringify(result));
             console.log(JSON.stringify(result));
-            
         }, function(error){
             alert("Image not uploaded");
             // alert(JSON.stringify(error));
             console.log(JSON.stringify(error));
-            
         }, options);
     }
-
-
 
 
 function j2s(json) {
@@ -909,7 +903,6 @@ myApp.onPageInit('product_details', function(page) {
         type: 'POST',
         crossDomain: true,
         data: {
-
         },
         success: function(res) {
                         if (res.status == 'success') {
@@ -949,7 +942,7 @@ myApp.onPageInit('product_details', function(page) {
                             var category = document.getElementById('rentperday');
                             category.innerHTML = "<span style='color: black;'>Rent per day: ₹</span>" +res.ad_details["rentperday"]+"/Day";
                             var category = document.getElementById('photo1');
-                            category.innerHTML = res.ad_details["photo1"];
+                            category.src = res.ad_details["photo1"];
                         } else {
                             alert(res.api_msg);
                         }
