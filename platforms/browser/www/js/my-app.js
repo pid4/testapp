@@ -810,7 +810,7 @@ function uploadPhoto(imageURI) {
         alert(imageURI);
         var options = new FileUploadOptions();
         options.fileKey = "file";
-        options.fileName = imageURI.substr(imageURI.lastIndexOf('/') + 1);
+        options.fileName = imageURI.substr(imageURI.lastIndexOf('?') + 1);
         options.mimeType = "image/jpeg";
         // console.log(options.fileName);
         alert(options.fileName);
