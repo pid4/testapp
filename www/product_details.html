@@ -1,77 +1,81 @@
 <div class="pages">
 	<div data-page="product_details" class="page">
-        <div class="page-content">
+		<div class="page-content">
 			<div class="block">
 				<div class="content-block" style="text-align: center;">
-					<a class="title"> <div id="adtitle"></div></a>
-
+					<a class="title">
+						<div id="adtitle"></div>
+					</a>
 				</div>
 				<div class="content-block">
-				<div data-pagination data-space-between="50" class="swiper-container swiper-init demo-swiperpp">
-				<div class="swiper-pagination"></div>
-			  
-  				<div class="swiper-wrapper">
-    			<div class="swiper-slide">
-					<img src="" id="photo1" class="resize">
+					<div data-pagination data-space-between="50" class="swiper-container swiper-init demo-swiperpp">
+						<div class="swiper-pagination"></div>
+						<div class="swiper-wrapper">
+							<div class="swiper-slide">
+								<img src="" id="photo1" class="resize">
+							</div>
+						</div>
+					</div>
 				</div>
-
-  			</div>
+				<div class="content-block">
+					<a>
+						<div id="postdate"></div>
+					</a>
+				</div>
+				<div class="content-block">
+					<a>
+						<div id="posted by"></div>
+					</a>
+				</div>
+				<div class="content-block">
+					<a>
+						<div id="category"></div>
+					</a>
+				</div>
+				<div class="content-block">
+					<a>
+						<div id="city"></div>
+					</a>
+				</div>
+				<div class="content-block">
+					<a>
+						<span style='color: black;'>Description:</span>
+						<div id="description"></div>
+					</a>
+				</div>
+				<div class="content-block">
+					<a>
+						<div id="maxdays"></div>
+					</a>
+				</div>
+				<div class="content-block">
+					<a>
+						<div id="depositamt"></div>
+					</a>
+				</div>
+				<div class="content-block">
+					<a>
+						<div id="rentperday"></div>
+					</a>
+				</div>
+				<div class="content-block" hidden>
+					<a>
+						<div id="userid"></div>
+					</a>
+				</div>
+				<div class="content-block">
+					<a>
+						<span style='color: black;'>No of Days you would like to rent it for:</span>
+					</a>
+					<input type=number value=1 id='no_days' name='no_days' min="1" max="30" />
+				</div>
+				<div class="row items_listing">
+					<div class="btncentre">
+						<input type="hidden" id="adid" />
+						<button id="rent_btn" onclick="rentit()" style="text-align: center;" class="button button-fill"> Rent it! </button>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
-<div class="content-block">
-	<a><div id="postdate"></div></a>
 </div>
-
-<div class="content-block">
-	<a><div id="posted by"></div></a>
-</div>
-
-<div class="content-block">
-		<a><div id="category"></div> </a> 
-		
-</div>
-<div class="content-block">
-	<a><div id="city"></div></a>
-</div>
-
-<div class="content-block">
-	<a><span style='color: black;'>Description:</span><div id="description"></div></a>
-</div>
-
-<div class="content-block">
-	<a><div id="maxdays"></div></a>
-</div>
-
-<div class="content-block">			
-<a><div id="depositamt"></div></a>
-</div>
-
-<div class="content-block">
-<a><div id="rentperday"></div></a>
-</div>
-<div class="content-block" hidden>
-	<a>
-		<div id="userid"></div>
-	</a>
-</div>
-
-<div class="content-block">
-
-<a><span style='color: black;'>No of Days you would like to rent it for:</span></a>
-	<input type=number value=1 id='no_days' name='no_days' min="1" max="30"/>
-</div>
-<div class="row items_listing">
-	<div class="btncentre">
-	<input type="hidden" id="adid" />
-	<button id="rent_btn" onclick="rentit()"  style="text-align: center;" class="button button-fill"> Rent it! </button>
-</div>
-
-</div>
-		</div>
-	
-
-	</div>
-</div>
-</div>
-</div>
-
